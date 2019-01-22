@@ -11,17 +11,13 @@ public class Hero : BaseCharacter {
     public override bool Move(CharacterDirction dirction) {
         switch (dirction) {
             case CharacterDirction.DOWN:
-                Down();
-                break;
+                return Down();
             case CharacterDirction.UP:
-                Up();
-                break;
+                return Up();
             case CharacterDirction.LEFT:
-                Left();
-                break;
+                return Left();
             case CharacterDirction.RIGHT:
-                Right();
-                break;
+                return Right();
             default:
                 break;
         }

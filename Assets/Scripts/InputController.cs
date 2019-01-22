@@ -87,6 +87,7 @@ public class InputController : MonoBehaviour {
         foreach (BaseCharacter character in characterList) {
             isAllCompelte = isAllCompelte && character.Move(CharacterDirction.DOWN);
         }
+
         if (isAllCompelte) {
             currentAction = null;
             isControlling = false;
