@@ -3,6 +3,7 @@
     public ReachTile() {
         image = "Reach";
         dirction = ImageDirction.UP;
+        reach = true;
     }
 
 }

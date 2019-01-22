@@ -10,4 +10,6 @@ public abstract class BaseTile {
     public string image;
 
     public ImageDirction dirction;
+
+    public bool reach;
 }

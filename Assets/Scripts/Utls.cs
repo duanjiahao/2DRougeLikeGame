@@ -2,12 +2,18 @@
 
 public static class Utils {
 
-    public static GameObject DrawGameObject(Position pos, BaseTile tile, Transform transform) {
+    public const float TILE_SIZE = 50f;
+
+    public static GameObject DrawTile(Position pos, BaseTile tile, Transform transform) {
         GameObject go = ResourceManager.Singleton.Instantiate(tile.image, transform);
         FlipGameObject(go, tile.dirction);
-        RectTransform rectTransform = go.GetComponent<RectTransform>();
-        Vector2 size = rectTransform.sizeDelta;
-        go.transform.localPosition = new Vector2(pos.col * size.x, pos.row * size.y);
+        go.transform.localPosition = new Vector2(pos.col * TILE_SIZE, pos.row * TILE_SIZE);
+        return go;
+    }
+
+    public static GameObject DrawCharacter(BaseCharacter character, Transform transform) {
+        GameObject go = ResourceManager.Singleton.Instantiate(character.prefabPath, transform);
+        go.transform.localPosition = new Vector2(character.currentPosition.col * TILE_SIZE, character.currentPosition.row * TILE_SIZE);
         return go;
     }
 

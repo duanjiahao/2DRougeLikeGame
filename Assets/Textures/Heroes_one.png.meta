@@ -1,0 +1,482 @@
+fileFormatVersion: 2
+guid: 5838acabceb30406baf081af19c0bd41
+timeCreated: 1548162373
+licenseType: Pro
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: Heroes_one_0
+    21300002: Heroes_one_1
+    21300004: Heroes_one_2
+    21300006: Heroes_one_3
+    21300008: Heroes_one_4
+    21300010: Heroes_one_5
+    21300012: Heroes_one_6
+    21300014: Heroes_one_7
+    21300016: Heroes_one_8
+    21300018: Heroes_one_9
+    21300020: Heroes_one_10
+    21300022: Heroes_one_11
+    21300024: Heroes_one_12
+    21300026: Heroes_one_13
+    21300028: Heroes_one_14
+    21300030: Heroes_one_15
+    21300032: Heroes_one_16
+    21300034: Heroes_one_17
+    21300036: Heroes_one_18
+    21300038: Heroes_one_19
+    21300040: Heroes_one_20
+    21300042: Heroes_one_21
+    21300044: Heroes_one_22
+    21300046: Heroes_one_23
+    21300048: Heroes_one_24
+  externalObjects: {}
+  serializedVersion: 4
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: -1
+    mipBias: -1
+    wrapU: 1
+    wrapV: 1
+    wrapW: -1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Heroes_one_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 284
+        width: 288.57144
+        height: 284
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Heroes_one_1
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 284
+        width: 288.57144
+        height: 284
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Heroes_one_2
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 284
+        width: 288.57144
+        height: 284
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Heroes_one_3
+      rect:
+        serializedVersion: 2
+        x: 864
+        y: 284
+        width: 288.57144
+        height: 284
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Heroes_one_4
+      rect:
+        serializedVersion: 2
+        x: 1152
+        y: 284
+        width: 288.57144
+        height: 284
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Heroes_one_5
+      rect:
+        serializedVersion: 2
+        x: 1440
+        y: 284
+        width: 288.57144
+        height: 284
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Heroes_one_6
+      rect:
+        serializedVersion: 2
+        x: 1728
+        y: 284
+        width: 288.57144
+        height: 284
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Heroes_one_7
+      rect:
+        serializedVersion: 2
+        x: 2016
+        y: 284
+        width: 288.57144
+        height: 284
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Heroes_one_8
+      rect:
+        serializedVersion: 2
+        x: 2304
+        y: 284
+        width: 288.57144
+        height: 284
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Heroes_one_9
+      rect:
+        serializedVersion: 2
+        x: 2592
+        y: 284
+        width: 288.57144
+        height: 284
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Heroes_one_10
+      rect:
+        serializedVersion: 2
+        x: 2880
+        y: 284
+        width: 288.57144
+        height: 284
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Heroes_one_11
+      rect:
+        serializedVersion: 2
+        x: 3168
+        y: 284
+        width: 288.57144
+        height: 284
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Heroes_one_12
+      rect:
+        serializedVersion: 2
+        x: 3456
+        y: 284
+        width: 288.57144
+        height: 284
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Heroes_one_13
+      rect:
+        serializedVersion: 2
+        x: 3744
+        y: 284
+        width: 288.57144
+        height: 284
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Heroes_one_14
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 288.57144
+        height: 284
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Heroes_one_15
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 0
+        width: 288.57144
+        height: 284
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Heroes_one_16
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 0
+        width: 288.57144
+        height: 284
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Heroes_one_17
+      rect:
+        serializedVersion: 2
+        x: 864
+        y: 0
+        width: 288.57144
+        height: 284
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Heroes_one_18
+      rect:
+        serializedVersion: 2
+        x: 1152
+        y: 0
+        width: 288.57144
+        height: 284
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Heroes_one_19
+      rect:
+        serializedVersion: 2
+        x: 1440
+        y: 0
+        width: 288.57144
+        height: 284
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Heroes_one_20
+      rect:
+        serializedVersion: 2
+        x: 1728
+        y: 0
+        width: 288.57144
+        height: 284
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Heroes_one_21
+      rect:
+        serializedVersion: 2
+        x: 2016
+        y: 0
+        width: 288.57144
+        height: 284
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Heroes_one_22
+      rect:
+        serializedVersion: 2
+        x: 2304
+        y: 0
+        width: 288.57144
+        height: 284
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Heroes_one_23
+      rect:
+        serializedVersion: 2
+        x: 2592
+        y: 0
+        width: 288.57144
+        height: 284
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Heroes_one_24
+      rect:
+        serializedVersion: 2
+        x: 2880
+        y: 0
+        width: 288.57144
+        height: 284
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    outline: []
+    physicsShape: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

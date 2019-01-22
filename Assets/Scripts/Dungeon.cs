@@ -64,6 +64,16 @@ public class Dungeon {
         private set;
     }
 
+    public Position StartPoint {
+        get;
+        private set;
+    }
+
+    public Position EndPoint {
+        get;
+        private set;
+    }
+
     public Dungeon(int size, int roomCount, int roomSize, int diffculty) {
         this.Size = size;
         this.RoomCount = roomCount;
@@ -79,16 +89,34 @@ public class Dungeon {
         Dictionary<Position, BaseTile>.Enumerator itor = dungeonMap.GetEnumerator();
 
         while (itor.MoveNext()) {
-            Utils.DrawGameObject(itor.Current.Key, itor.Current.Value, container);
+            Utils.DrawTile(itor.Current.Key, itor.Current.Value, container);
         }
     }
 
+    /// <summary>
+    /// 1.递归生成一个一个room
+    /// 2.检查该room是否与总地图有重合部分（相邻也不行）
+    /// 3.生成该room与上一个room的路径
+    /// 4.将该room加入到总地图中
+    /// 5.生成所有的room和路径
+    /// 6.填补room中的缝隙（填补生成瑕疵）
+    /// 7.添加总地图的包围区域
+    /// </summary>
+    /// <returns>The all room.</returns>
     private Dictionary<Position, BaseTile> GenerateAllRoom() {
         Dictionary<Position, BaseTile> map = new Dictionary<Position, BaseTile>();
 
         Dictionary<Position, BaseTile> oldMap = null;
         for (int i = 0; i < RoomCount;) {
             Position startPos = GenerateRandomPosition();
+
+            if (i == 0) {
+                StartPoint = startPos;
+            }
+            if (i == RoomCount - 1) {
+                EndPoint = startPos;
+            }
+
             Dictionary<Position, BaseTile> newMap = GenerateRoom(startPos, RoomSize);
             //SetUpSlot(newMap);
 
@@ -116,7 +144,11 @@ public class Dungeon {
             return;
         }
 
-        map.Add(pos, new ReachTile());
+        if (EndPoint.Equals(pos)) {
+            map.Add(pos, new DekuchiTile());
+        } else {
+            map.Add(pos, new ReachTile());
+        }
         step--;
 
         bool isSet = false;
