@@ -8,7 +8,18 @@ public class StartGame : MonoBehaviour {
 
     public Transform heroContainer;
 
-    private Hero hero;
+    public void RestartAll() {
+        StartCoroutine("Restart");
+    }
+
+    IEnumerator Restart() {
+        yield return null;
+
+        ResourceManager.Singleton.UnAllResource();
+        DungeonManager.Singleton.StartNewDungeon();
+        CharacterManager.Singleton.RemoveAllCharacter();
+        CharacterManager.Singleton.GenerateHero();
+    }
 
 	// Use this for initialization
 	void Start () {
@@ -16,24 +27,24 @@ public class StartGame : MonoBehaviour {
 
         ResourceManager.Singleton.Init();
         InputController.Singleton.Init();
+        DungeonManager.Singleton.Init(transform);
+        CharacterManager.Singleton.Init(heroContainer);
 
-        Dungeon dungeon = new Dungeon(20, 5, 20, 0);
-        dungeon.GenerateDungeon();
-        dungeon.DrawDungeon(transform);
+        DungeonManager.Singleton.StartNewDungeon();
+        CharacterManager.Singleton.GenerateHero();
 
-        hero = new Hero(dungeon.StartPoint, heroContainer, dungeon);
-        InputController.Singleton.AddCharacter(hero);
-
-        UICamera.transform.localPosition = new Vector3(dungeon.StartPoint.col * 50f, dungeon.StartPoint.row * 50f, -100f);
+        UICamera.transform.localPosition = new Vector3(DungeonManager.Singleton.CurrentDungeon.StartPoint.col * Utils.TILE_SIZE, DungeonManager.Singleton.CurrentDungeon.StartPoint.row * Utils.TILE_SIZE);
 
         //记录耗时
         Debug.LogWarning(Time.realtimeSinceStartup - currentTime);
     }
 
     // Update is called once per frame
-	void Update () {
+    void Update() {
         InputController.Singleton.Update();
 
-        UICamera.transform.localPosition = hero.go.transform.localPosition;
+        if (CharacterManager.Singleton.Hero.go != null) {
+            UICamera.transform.localPosition = CharacterManager.Singleton.Hero.go.transform.localPosition;
+        }
 	}
 }

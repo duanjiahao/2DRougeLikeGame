@@ -9,8 +9,6 @@ public enum CharacterDirction {
 
 public abstract class BaseCharacter {
 
-    public Dungeon dungeon;
-
     public Position currentPosition;
 
     public string prefabPath;

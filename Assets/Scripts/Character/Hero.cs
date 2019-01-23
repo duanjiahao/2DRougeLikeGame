@@ -1,16 +1,14 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class Hero : BaseCharacter {
 
     private Animator animator;
 
-    public Hero(Position position, Transform container, Dungeon dungeon) {
-        currentPosition = position;
+    public Hero(Transform container) {
+        currentPosition = DungeonManager.Singleton.CurrentDungeon.StartPoint;
         prefabPath = "Hero";
         go = Utils.DrawCharacter(this, container);
         animator = go.GetComponentInChildren<Animator>();
-        this.dungeon = dungeon;
     }
 
     public override bool Move(CharacterDirction dirction) {
@@ -49,7 +47,7 @@ public class Hero : BaseCharacter {
         }
 
         if (!hasSetOnce) {
-            canMove = dungeon.CanMove(CharacterDirction.DOWN, currentPosition);
+            canMove = DungeonManager.Singleton.CurrentDungeon.CanMove(CharacterDirction.DOWN, currentPosition);
             animator.SetTrigger("Down");
             endPosition = go.transform.localPosition + Vector3.down * Utils.TILE_SIZE;
             hasSetOnce = true;
@@ -60,6 +58,7 @@ public class Hero : BaseCharacter {
             if (go.transform.localPosition.y < endPosition.y) {
                 go.transform.localPosition = endPosition;
                 currentPosition = currentPosition.Bottom();
+                CheckIfReachDeKuChi();
                 calculateComplete = true;
                 return true;
             } else {
@@ -76,7 +75,7 @@ public class Hero : BaseCharacter {
         }
 
         if (!hasSetOnce) {
-            canMove = dungeon.CanMove(CharacterDirction.UP, currentPosition);
+            canMove = DungeonManager.Singleton.CurrentDungeon.CanMove(CharacterDirction.UP, currentPosition);
             animator.SetTrigger("Up");
             endPosition = go.transform.localPosition + Vector3.up * Utils.TILE_SIZE;
             hasSetOnce = true;
@@ -87,6 +86,7 @@ public class Hero : BaseCharacter {
             if (go.transform.localPosition.y > endPosition.y) {
                 go.transform.localPosition = endPosition;
                 currentPosition = currentPosition.Top();
+                CheckIfReachDeKuChi();
                 calculateComplete = true;
                 return true;
             } else {
@@ -103,7 +103,7 @@ public class Hero : BaseCharacter {
         }
 
         if (!hasSetOnce) {
-            canMove = dungeon.CanMove(CharacterDirction.LEFT, currentPosition);
+            canMove = DungeonManager.Singleton.CurrentDungeon.CanMove(CharacterDirction.LEFT, currentPosition);
             animator.SetTrigger("Left");
             endPosition = go.transform.localPosition + Vector3.left * Utils.TILE_SIZE;
             hasSetOnce = true;
@@ -114,6 +114,7 @@ public class Hero : BaseCharacter {
             if (go.transform.localPosition.x < endPosition.x) {
                 go.transform.localPosition = endPosition;
                 currentPosition = currentPosition.Left();
+                CheckIfReachDeKuChi();
                 calculateComplete = true;
                 return true;
             } else {
@@ -130,7 +131,7 @@ public class Hero : BaseCharacter {
         }
 
         if (!hasSetOnce) {
-            canMove = dungeon.CanMove(CharacterDirction.RIGHT, currentPosition);
+            canMove = DungeonManager.Singleton.CurrentDungeon.CanMove(CharacterDirction.RIGHT, currentPosition);
             animator.SetTrigger("Right");
             endPosition = go.transform.localPosition + Vector3.right * Utils.TILE_SIZE;
             hasSetOnce = true;
@@ -141,6 +142,7 @@ public class Hero : BaseCharacter {
             if (go.transform.localPosition.x > endPosition.x) {
                 go.transform.localPosition = endPosition;
                 currentPosition = currentPosition.Right();
+                CheckIfReachDeKuChi();
                 calculateComplete = true;
                 return true;
             } else {
@@ -150,4 +152,15 @@ public class Hero : BaseCharacter {
 
         return true;
     }
+
+    /// <summary>
+    /// 检查是否到达出口
+    /// </summary>
+    private void CheckIfReachDeKuChi() {
+        if (currentPosition.Equals(DungeonManager.Singleton.CurrentDungeon.EndPoint)) {
+
+            DungeonManager.Singleton.Container.GetComponent<StartGame>().RestartAll();
+        }
+    }
+
 }
