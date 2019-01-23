@@ -4,24 +4,27 @@ using UnityEngine;
 
 public class StartGame : MonoBehaviour {
 
-    public Camera camera;
+    public Camera UICamera;
 
     public Transform heroContainer;
+
+    private Hero hero;
 
 	// Use this for initialization
 	void Start () {
         float currentTime = Time.realtimeSinceStartup;
 
         ResourceManager.Singleton.Init();
+        InputController.Singleton.Init();
 
         Dungeon dungeon = new Dungeon(20, 5, 20, 0);
         dungeon.GenerateDungeon();
         dungeon.DrawDungeon(transform);
 
-        Hero hero = new Hero(dungeon.StartPoint, heroContainer);
-        InputController.AddCharacter(hero);
+        hero = new Hero(dungeon.StartPoint, heroContainer, dungeon);
+        InputController.Singleton.AddCharacter(hero);
 
-        camera.transform.localPosition = new Vector3(dungeon.StartPoint.col * 50f, dungeon.StartPoint.row * 50f, -100f);
+        UICamera.transform.localPosition = new Vector3(dungeon.StartPoint.col * 50f, dungeon.StartPoint.row * 50f, -100f);
 
         //记录耗时
         Debug.LogWarning(Time.realtimeSinceStartup - currentTime);
@@ -29,6 +32,8 @@ public class StartGame : MonoBehaviour {
 
     // Update is called once per frame
 	void Update () {
-		
+        InputController.Singleton.Update();
+
+        UICamera.transform.localPosition = hero.go.transform.localPosition;
 	}
 }

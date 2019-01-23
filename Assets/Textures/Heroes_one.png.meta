@@ -128,9 +128,9 @@ TextureImporter:
       name: Heroes_one_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 3
         y: 284
-        width: 288.57144
+        width: 286
         height: 284
       alignment: 1
       pivot: {x: 0, y: 1}
@@ -324,9 +324,9 @@ TextureImporter:
       name: Heroes_one_14
       rect:
         serializedVersion: 2
-        x: 0
+        x: 3
         y: 0
-        width: 288.57144
+        width: 289
         height: 284
       alignment: 1
       pivot: {x: 0, y: 1}

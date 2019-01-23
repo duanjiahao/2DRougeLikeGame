@@ -93,6 +93,37 @@ public class Dungeon {
         }
     }
 
+    public bool CanMove(CharacterDirction dirction, Position position) {
+        switch (dirction) {
+            case CharacterDirction.UP:
+                Position top = position.Top();
+                if (dungeonMap.ContainsKey(top)) {
+                    return dungeonMap[top].reach;
+                }
+                break;
+            case CharacterDirction.DOWN:
+                Position bottom = position.Bottom();
+                if (dungeonMap.ContainsKey(bottom)) {
+                    return dungeonMap[bottom].reach;
+                }
+                break;
+            case CharacterDirction.LEFT:
+                Position left = position.Left();
+                if (dungeonMap.ContainsKey(left)) {
+                    return dungeonMap[left].reach;
+                }
+                break;
+            case CharacterDirction.RIGHT:
+                Position right = position.Right();
+                if (dungeonMap.ContainsKey(right)) {
+                    return dungeonMap[right].reach;
+                }
+                break;
+        }
+
+        return false;
+    }
+
     /// <summary>
     /// 1.递归生成一个一个room
     /// 2.检查该room是否与总地图有重合部分（相邻也不行）

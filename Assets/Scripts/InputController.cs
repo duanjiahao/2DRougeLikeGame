@@ -2,7 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InputController : MonoBehaviour {
+public class InputController {
+
+    private static InputController inputController;
+    public static InputController Singleton {
+        get {
+            if (inputController == null) {
+                inputController = new InputController();
+            }
+            return inputController;
+        }
+    }
 
     private bool isControlling;
 
@@ -10,17 +20,15 @@ public class InputController : MonoBehaviour {
 
     private Action currentAction = null;
 
-    // Use this for initialization
-    void Start() {
+    public void Init() {
         characterList = new List<BaseCharacter>();
     }
 
-    public static void AddCharacter(BaseCharacter character) {
+    public void AddCharacter(BaseCharacter character) {
         characterList.Add(character);
     }
 
-    // Update is called once per frame
-    void Update() {
+    public void Update() {
 
         if (isControlling) {
             if (currentAction != null) {
@@ -60,46 +68,79 @@ public class InputController : MonoBehaviour {
         currentAction = null;
     }
 
+    private bool setOnce = false;
     private void Right() {
+        if (!setOnce) {
+            foreach (BaseCharacter character in characterList) {
+                character.Init();
+            }
+            setOnce = true;
+        }
+
         bool isAllCompelte = true;
         foreach (BaseCharacter character in characterList) {
             isAllCompelte = isAllCompelte && character.Move(CharacterDirction.RIGHT);
         }
         if (isAllCompelte) {
+            setOnce = false;
             currentAction = null;
             isControlling = false;
         }
     }
 
     private void Left() {
+        if (!setOnce) {
+            foreach (BaseCharacter character in characterList) {
+                character.Init();
+            }
+            setOnce = true;
+        }
+
         bool isAllCompelte = true;
         foreach (BaseCharacter character in characterList) {
             isAllCompelte = isAllCompelte && character.Move(CharacterDirction.LEFT);
         }
         if (isAllCompelte) {
+            setOnce = false;
             currentAction = null;
             isControlling = false;
         }
     }
 
     private void Down() {
+        if (!setOnce) {
+            foreach (BaseCharacter character in characterList) {
+                character.Init();
+            }
+            setOnce = true;
+        }
+
         bool isAllCompelte = true;
         foreach (BaseCharacter character in characterList) {
             isAllCompelte = isAllCompelte && character.Move(CharacterDirction.DOWN);
         }
 
         if (isAllCompelte) {
+            setOnce = false;
             currentAction = null;
             isControlling = false;
         }
     }
 
     private void Up() {
+        if (!setOnce) {
+            foreach (BaseCharacter character in characterList) {
+                character.Init();
+            }
+            setOnce = true;
+        }
+
         bool isAllCompelte = true;
         foreach (BaseCharacter character in characterList) {
             isAllCompelte = isAllCompelte && character.Move(CharacterDirction.UP);
         }
         if (isAllCompelte) {
+            setOnce = false;
             currentAction = null;
             isControlling = false;
         }

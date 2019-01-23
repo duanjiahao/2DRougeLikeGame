@@ -2,10 +2,15 @@
 using System.Collections;
 
 public class Hero : BaseCharacter {
-    public Hero(Position position, Transform container) {
+
+    private Animator animator;
+
+    public Hero(Position position, Transform container, Dungeon dungeon) {
         currentPosition = position;
         prefabPath = "Hero";
-        Utils.DrawCharacter(this, container);
+        go = Utils.DrawCharacter(this, container);
+        animator = go.GetComponentInChildren<Animator>();
+        this.dungeon = dungeon;
     }
 
     public override bool Move(CharacterDirction dirction) {
@@ -24,40 +29,125 @@ public class Hero : BaseCharacter {
         return false;
     }
 
-    private float time = 0f;
+    private bool calculateComplete;
+    private bool hasSetOnce;
+    private float time;
+    public override void Init() {
+        hasSetOnce = false;
+        calculateComplete = false;
+        animator.ResetTrigger("Up");
+        animator.ResetTrigger("Down");
+        animator.ResetTrigger("Left");
+        animator.ResetTrigger("Right");
+    }
+
+    private Vector3 endPosition;
+    private bool canMove;
     public bool Down() {
-        time += Time.deltaTime;
-        if (time > 2f) {
-            time = 0f;
+        if (calculateComplete) {
             return true;
         }
-        return false;
+
+        if (!hasSetOnce) {
+            canMove = dungeon.CanMove(CharacterDirction.DOWN, currentPosition);
+            animator.SetTrigger("Down");
+            endPosition = go.transform.localPosition + Vector3.down * Utils.TILE_SIZE;
+            hasSetOnce = true;
+        }
+
+        if (canMove) {
+            go.transform.localPosition += Vector3.down * Time.deltaTime * 2f * Utils.TILE_SIZE;
+            if (go.transform.localPosition.y < endPosition.y) {
+                go.transform.localPosition = endPosition;
+                currentPosition = currentPosition.Bottom();
+                calculateComplete = true;
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     public bool Up() {
-        time += Time.deltaTime;
-        if (time > 2f) {
-            time = 0f;
+        if (calculateComplete) {
             return true;
         }
-        return false;
+
+        if (!hasSetOnce) {
+            canMove = dungeon.CanMove(CharacterDirction.UP, currentPosition);
+            animator.SetTrigger("Up");
+            endPosition = go.transform.localPosition + Vector3.up * Utils.TILE_SIZE;
+            hasSetOnce = true;
+        }
+
+        if (canMove) {
+            go.transform.localPosition += Vector3.up * Time.deltaTime * 2f * Utils.TILE_SIZE;
+            if (go.transform.localPosition.y > endPosition.y) {
+                go.transform.localPosition = endPosition;
+                currentPosition = currentPosition.Top();
+                calculateComplete = true;
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     public bool Left() {
-        time += Time.deltaTime;
-        if (time > 2f) {
-            time = 0f;
+        if (calculateComplete) {
             return true;
         }
-        return false;
+
+        if (!hasSetOnce) {
+            canMove = dungeon.CanMove(CharacterDirction.LEFT, currentPosition);
+            animator.SetTrigger("Left");
+            endPosition = go.transform.localPosition + Vector3.left * Utils.TILE_SIZE;
+            hasSetOnce = true;
+        }
+
+        if (canMove) {
+            go.transform.localPosition += Vector3.left * Time.deltaTime * 2f * Utils.TILE_SIZE;
+            if (go.transform.localPosition.x < endPosition.x) {
+                go.transform.localPosition = endPosition;
+                currentPosition = currentPosition.Left();
+                calculateComplete = true;
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     public bool Right() {
-        time += Time.deltaTime;
-        if (time > 2f) {
-            time = 0f;
+        if (calculateComplete) {
             return true;
         }
-        return false;
+
+        if (!hasSetOnce) {
+            canMove = dungeon.CanMove(CharacterDirction.RIGHT, currentPosition);
+            animator.SetTrigger("Right");
+            endPosition = go.transform.localPosition + Vector3.right * Utils.TILE_SIZE;
+            hasSetOnce = true;
+        }
+
+        if (canMove) {
+            go.transform.localPosition += Vector3.right * Time.deltaTime * 2f * Utils.TILE_SIZE;
+            if (go.transform.localPosition.x > endPosition.x) {
+                go.transform.localPosition = endPosition;
+                currentPosition = currentPosition.Right();
+                calculateComplete = true;
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        return true;
     }
 }
