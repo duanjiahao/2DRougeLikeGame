@@ -51,14 +51,14 @@ public class StartGame : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update() {
+    void FixedUpdate() {
         InputController.Singleton.Update();
         CharacterManager.Singleton.Update();
         LittleMapManager.Singleton.Update();
 
         if (CharacterManager.Singleton.Hero.go != null) {
             Vector3 distance = CharacterManager.Singleton.Hero.go.transform.localPosition - UICamera.transform.localPosition;
-            UICamera.transform.localPosition += distance * Time.smoothDeltaTime * 10;
+            UICamera.transform.localPosition += distance * Time.smoothDeltaTime * 5f;
         }
 	}
 
