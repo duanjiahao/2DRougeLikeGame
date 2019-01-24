@@ -12,10 +12,10 @@ public class StartGame : MonoBehaviour {
 
     public Transform DungeonContainer;
 
-    public EventTrigger left;
-    public EventTrigger right;
-    public EventTrigger up;
-    public EventTrigger down;
+    public PressComponent left;
+    public PressComponent right;
+    public PressComponent up;
+    public PressComponent down;
 
     public void RestartAll() {
         StartCoroutine("Restart");
@@ -63,25 +63,25 @@ public class StartGame : MonoBehaviour {
     /// 接收点击事件，后边要集成到InputContoller里
     /// </summary>
     private void AddEvent() {
-        left.triggers[0].callback.AddListener(OnLeftClick);
-        right.triggers[0].callback.AddListener(OnRightClick);
-        up.triggers[0].callback.AddListener(OnUpClick);
-        down.triggers[0].callback.AddListener(OnDownClick);
+        left.OnPress.AddListener(OnLeftClick);
+        right.OnPress.AddListener(OnRightClick);
+        up.OnPress.AddListener(OnUpClick);
+        down.OnPress.AddListener(OnDownClick);
     }
 
-    private void OnDownClick(BaseEventData eventData) {
+    private void OnDownClick() {
         InputController.Singleton.DispatchAction(ActionType.Donw);
     }
 
-    private void OnUpClick(BaseEventData eventData) {
+    private void OnUpClick() {
         InputController.Singleton.DispatchAction(ActionType.Up);
     }
 
-    private void OnRightClick(BaseEventData eventData) {
+    private void OnRightClick() {
         InputController.Singleton.DispatchAction(ActionType.Right);
     }
 
-    private void OnLeftClick(BaseEventData eventData) {
+    private void OnLeftClick() {
         InputController.Singleton.DispatchAction(ActionType.Left);
     }
 }
