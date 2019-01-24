@@ -4,6 +4,8 @@ public class Hero : BaseCharacter {
 
     private Animator animator;
 
+    public string littleMapImage = "Hero_littleMap";
+
     public Hero(Transform container) {
         currentPosition = DungeonManager.Singleton.CurrentDungeon.StartPoint;
         prefabPath = "Hero";
@@ -54,8 +56,8 @@ public class Hero : BaseCharacter {
         }
 
         if (canMove) {
-            go.transform.localPosition += Vector3.down * Time.deltaTime * 2f * Utils.TILE_SIZE;
-            if (go.transform.localPosition.y < endPosition.y) {
+            go.transform.localPosition += Vector3.down * Time.smoothDeltaTime * 2f * Utils.TILE_SIZE;
+            if (go.transform.localPosition.y <= endPosition.y) {
                 go.transform.localPosition = endPosition;
                 currentPosition = currentPosition.Bottom();
                 calculateComplete = true;
@@ -81,8 +83,8 @@ public class Hero : BaseCharacter {
         }
 
         if (canMove) {
-            go.transform.localPosition += Vector3.up * Time.deltaTime * 2f * Utils.TILE_SIZE;
-            if (go.transform.localPosition.y > endPosition.y) {
+            go.transform.localPosition += Vector3.up * Time.smoothDeltaTime * 2f * Utils.TILE_SIZE;
+            if (go.transform.localPosition.y >= endPosition.y) {
                 go.transform.localPosition = endPosition;
                 currentPosition = currentPosition.Top();
                 calculateComplete = true;
@@ -108,8 +110,8 @@ public class Hero : BaseCharacter {
         }
 
         if (canMove) {
-            go.transform.localPosition += Vector3.left * Time.deltaTime * 2f * Utils.TILE_SIZE;
-            if (go.transform.localPosition.x < endPosition.x) {
+            go.transform.localPosition += Vector3.left * Time.smoothDeltaTime * 2f * Utils.TILE_SIZE;
+            if (go.transform.localPosition.x <= endPosition.x) {
                 go.transform.localPosition = endPosition;
                 currentPosition = currentPosition.Left();
                 calculateComplete = true;
@@ -135,8 +137,8 @@ public class Hero : BaseCharacter {
         }
 
         if (canMove) {
-            go.transform.localPosition += Vector3.right * Time.deltaTime * 2f * Utils.TILE_SIZE;
-            if (go.transform.localPosition.x > endPosition.x) {
+            go.transform.localPosition += Vector3.right * Time.smoothDeltaTime * 2f * Utils.TILE_SIZE;
+            if (go.transform.localPosition.x >= endPosition.x) {
                 go.transform.localPosition = endPosition;
                 currentPosition = currentPosition.Right();
                 calculateComplete = true;

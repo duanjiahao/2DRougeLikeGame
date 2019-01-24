@@ -1,16 +1,14 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.EventSystems;
-using System;
 
 public class StartGame : MonoBehaviour {
 
     public Camera UICamera;
-
     public Transform heroContainer;
-
     public Transform DungeonContainer;
+    public Transform LittleMapContainer;
+    public CanvasScaler canvasScaler;
 
     public PressComponent left;
     public PressComponent right;
@@ -23,11 +21,12 @@ public class StartGame : MonoBehaviour {
 
     IEnumerator Restart() {
         yield return null;
-
-        ResourceManager.Singleton.UnAllResource();
-        DungeonManager.Singleton.StartNewDungeon();
+        ResourceManager.Singleton.UnloadAllResource();
         CharacterManager.Singleton.RemoveAllCharacter();
+        DungeonManager.Singleton.StartNewDungeon();
         CharacterManager.Singleton.GenerateHero();
+        yield return null;
+        LittleMapManager.Singleton.DrawLittleMap();
     }
 
 	// Use this for initialization
@@ -40,6 +39,8 @@ public class StartGame : MonoBehaviour {
         CharacterManager.Singleton.Init(heroContainer, this);
 
         DungeonManager.Singleton.StartNewDungeon();
+        LittleMapManager.Singleton.Init(LittleMapContainer, canvasScaler);
+        LittleMapManager.Singleton.DrawLittleMap();
         CharacterManager.Singleton.GenerateHero();
 
         UICamera.transform.localPosition = new Vector3(DungeonManager.Singleton.CurrentDungeon.StartPoint.col * Utils.TILE_SIZE, DungeonManager.Singleton.CurrentDungeon.StartPoint.row * Utils.TILE_SIZE);
@@ -53,9 +54,11 @@ public class StartGame : MonoBehaviour {
     void Update() {
         InputController.Singleton.Update();
         CharacterManager.Singleton.Update();
+        LittleMapManager.Singleton.Update();
 
         if (CharacterManager.Singleton.Hero.go != null) {
-            UICamera.transform.localPosition = CharacterManager.Singleton.Hero.go.transform.localPosition;
+            Vector3 distance = CharacterManager.Singleton.Hero.go.transform.localPosition - UICamera.transform.localPosition;
+            UICamera.transform.localPosition += distance * Time.smoothDeltaTime * 10;
         }
 	}
 

@@ -25,7 +25,7 @@ public class ResourceManager {
     /// <summary>
     /// 卸载所有Instanstiate的GO
     /// </summary>
-    public void UnAllResource() {
+    public void UnloadAllResource() {
 
         Dictionary<int, List<GameObject>>.Enumerator itor = allInstantiateGo.GetEnumerator();
         while (itor.MoveNext()) {

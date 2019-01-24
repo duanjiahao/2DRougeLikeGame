@@ -27,7 +27,7 @@ public class PressComponent : MonoBehaviour, IPointerDownHandler, IPointerUpHand
     }
 
     // Update is called once per frame
-    void Update() {
+    void FixedUpdate() {
         if (isPress) {
             if (m_onPress != null) {
                 m_onPress.Invoke();
@@ -37,6 +37,7 @@ public class PressComponent : MonoBehaviour, IPointerDownHandler, IPointerUpHand
 
     public void OnPointerDown(PointerEventData eventData) {
         isPress = true;
+        FixedUpdate();
     }
 
     public void OnPointerUp(PointerEventData eventData) {

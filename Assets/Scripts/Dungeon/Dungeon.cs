@@ -37,6 +37,11 @@ public class Dungeon {
     /// <summary>
     /// 地图数据，value部分之后定义
     /// </summary>
+    public Dictionary<Position, BaseTile> DungeonMap{
+        get {
+            return dungeonMap;
+        }
+    }
     private Dictionary<Position, BaseTile> dungeonMap;
 
     /// <summary>
@@ -79,6 +84,8 @@ public class Dungeon {
         this.RoomCount = roomCount;
         this.RoomSize = roomSize;
         this.Diffculty = diffculty;
+        StartPoint = new Position(-1, -1);
+        EndPoint = new Position(-1, -1);
     }
 
     public void GenerateDungeon() {
@@ -233,11 +240,11 @@ public class Dungeon {
     }
 
     private Position GenerateRandomPosition() {
-        return new Position(UnityEngine.Random.Range(0, Size + 1), UnityEngine.Random.Range(0, Size + 1));
+        return new Position(UnityEngine.Random.Range(0, Size), UnityEngine.Random.Range(0, Size));
     }
 
     private bool IsValidPosition(Position positon) {
-        return positon.row >= 0 && positon.row <= Size && positon.col >= 0 && positon.col <= Size;
+        return positon.row >= 0 && positon.row < Size && positon.col >= 0 && positon.col < Size;
     }
 
     /// <summary>
