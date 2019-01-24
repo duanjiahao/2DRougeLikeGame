@@ -58,7 +58,6 @@ public class Hero : BaseCharacter {
             if (go.transform.localPosition.y < endPosition.y) {
                 go.transform.localPosition = endPosition;
                 currentPosition = currentPosition.Bottom();
-                CheckIfReachDeKuChi();
                 calculateComplete = true;
                 return true;
             } else {
@@ -86,7 +85,6 @@ public class Hero : BaseCharacter {
             if (go.transform.localPosition.y > endPosition.y) {
                 go.transform.localPosition = endPosition;
                 currentPosition = currentPosition.Top();
-                CheckIfReachDeKuChi();
                 calculateComplete = true;
                 return true;
             } else {
@@ -114,7 +112,6 @@ public class Hero : BaseCharacter {
             if (go.transform.localPosition.x < endPosition.x) {
                 go.transform.localPosition = endPosition;
                 currentPosition = currentPosition.Left();
-                CheckIfReachDeKuChi();
                 calculateComplete = true;
                 return true;
             } else {
@@ -142,7 +139,6 @@ public class Hero : BaseCharacter {
             if (go.transform.localPosition.x > endPosition.x) {
                 go.transform.localPosition = endPosition;
                 currentPosition = currentPosition.Right();
-                CheckIfReachDeKuChi();
                 calculateComplete = true;
                 return true;
             } else {
@@ -152,15 +148,4 @@ public class Hero : BaseCharacter {
 
         return true;
     }
-
-    /// <summary>
-    /// 检查是否到达出口
-    /// </summary>
-    private void CheckIfReachDeKuChi() {
-        if (currentPosition.Equals(DungeonManager.Singleton.CurrentDungeon.EndPoint)) {
-
-            DungeonManager.Singleton.Container.GetComponent<StartGame>().RestartAll();
-        }
-    }
-
 }

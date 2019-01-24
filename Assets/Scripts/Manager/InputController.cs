@@ -2,6 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum ActionType {
+    Up = 1,
+    Donw = 2,
+    Left = 3,
+    Right = 4,
+}
+
 public class InputController {
 
     private static InputController inputController;
@@ -18,9 +25,16 @@ public class InputController {
 
     private Action currentAction;
 
+    private Dictionary<ActionType, Action> actionMap;
+
     public void Init() {
         isControlling = false;
         currentAction = null;
+        actionMap = new Dictionary<ActionType, Action>();
+        actionMap.Add(ActionType.Up, Up);
+        actionMap.Add(ActionType.Donw, Down);
+        actionMap.Add(ActionType.Left, Left);
+        actionMap.Add(ActionType.Right, Right);
     }
 
     public void Update() {
@@ -32,41 +46,41 @@ public class InputController {
             return;
         }
 
-        if (Input.GetKey(KeyCode.UpArrow)) {
-            Debug.Log("Up");
-            isControlling = true;
-            currentAction = Up;
-            currentAction.Invoke();
+        if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W)) {
+            DispatchAction(ActionType.Up);
             return;
         }
 
-        if (Input.GetKey(KeyCode.DownArrow)) {
-            Debug.Log("Down");
-            isControlling = true;
-            currentAction = Down;
-            currentAction.Invoke();
+        if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S)) {
+            DispatchAction(ActionType.Donw);
             return;
         }
 
-        if (Input.GetKey(KeyCode.LeftArrow)) {
-            Debug.Log("Left");
-            isControlling = true;
-            currentAction = Left;
-            currentAction.Invoke();
+        if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A)) {
+            DispatchAction(ActionType.Left);
             return;
         }
 
-        if (Input.GetKey(KeyCode.RightArrow)) {
-            Debug.Log("Right");
-            isControlling = true;
-            currentAction = Right;
-            currentAction.Invoke();
+        if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D)) {
+            DispatchAction(ActionType.Right);
             return;
         }
 
         currentAction = null;
     }
 
+    public void DispatchAction(ActionType actionType) {
+        if (isControlling || !actionMap.ContainsKey(actionType)) {
+            return;
+        }
+
+        isControlling = true;
+        currentAction = actionMap[actionType];
+        currentAction.Invoke();
+    }
+
+
+    #region Action Event 
     private bool setOnce = false;
     private void Right() {
         if (!setOnce) {
@@ -144,4 +158,5 @@ public class InputController {
             isControlling = false;
         }
     }
+    #endregion
 }
