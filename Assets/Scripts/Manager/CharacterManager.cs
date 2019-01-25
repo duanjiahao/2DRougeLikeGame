@@ -34,7 +34,6 @@ public class CharacterManager {
         this.Container = container;
         Characters = new List<BaseCharacter>();
         this.startGame = startGame;
-        check = true;
     }
 
     public void AddCharacter(BaseCharacter baseCharacter) {
@@ -49,21 +48,36 @@ public class CharacterManager {
     public void GenerateHero() {
         Hero = new Hero(Container);
         Characters.Add(Hero);
-        check = false;
+        lastHeroPosition = Hero.currentPosition;
     }
 
-    private bool check = false;
+    private Position lastHeroPosition;
     public void Update() {
-        CheckIfReachDeKuChi();
+        if (Hero != null && Hero.currentPosition != lastHeroPosition) {
+            CheckIfReachDeKuChi();
+            CheckIfInPath();
+            lastHeroPosition = Hero.currentPosition;
+        }
     }
 
     /// <summary>
     /// 检查是否到达出口
     /// </summary>
     private void CheckIfReachDeKuChi() {
-        if (!check && Hero != null && Hero.currentPosition == DungeonManager.Singleton.CurrentDungeon.EndPoint) {
+        if (Hero != null && Hero.currentPosition == DungeonManager.Singleton.CurrentDungeon.EndPoint) {
             startGame.RestartAll();
-            check = true;
         }
+    }
+
+    /// <summary>
+    /// 检查是否在通路中
+    /// </summary>
+    /// <value>The check if in path.</value>
+    private void CheckIfInPath() {
+        //if (DungeonManager.Singleton.CurrentDungeon.IsInPath(Hero.currentPosition)) {
+        //    startGame.mask.enabled = true;
+        //} else {
+        //    startGame.mask.enabled = false;
+        //}
     }
 }

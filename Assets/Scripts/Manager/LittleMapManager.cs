@@ -24,6 +24,8 @@ public class LittleMapManager {
 
     public const float MAP_SIZE = 150f;
 
+    private Color whiteAlphaColor = new Color(1f, 1f, 1f, 0.9f);
+    private Color blackAlphaColor = new Color(0f, 0f, 0f, 0f);
     private GameObject littleHero;
     private Position sightArea;
     private float PER_SIZE;
@@ -51,7 +53,7 @@ public class LittleMapManager {
 
             go.transform.localPosition = new Vector3((itor.Current.Key.col - dungeonSize) * PER_SIZE, (itor.Current.Key.row - dungeonSize) * PER_SIZE);
             Image image = go.GetComponentInChildren<Image>();
-            image.color = IsInSight(itor.Current.Key) ? Color.white : Color.black;
+            image.color = IsInSight(itor.Current.Key) ? whiteAlphaColor : blackAlphaColor;
             checkMap.Add(itor.Current.Key, image);
         }
 
@@ -71,7 +73,7 @@ public class LittleMapManager {
             for (int i = CharacterManager.Singleton.Hero.currentPosition.row - sightArea.row; i <= CharacterManager.Singleton.Hero.currentPosition.row + sightArea.row; i++) {
                 Position position = new Position(i, CharacterManager.Singleton.Hero.currentPosition.col + (isUp ? 1 : -1) * sightArea.col);
                 if (checkMap.ContainsKey(position)) {
-                    checkMap[position].color = Color.white;
+                    checkMap[position].color = whiteAlphaColor;
                 }
             }
         }
@@ -81,7 +83,7 @@ public class LittleMapManager {
             for (int i = CharacterManager.Singleton.Hero.currentPosition.col - sightArea.col; i <= CharacterManager.Singleton.Hero.currentPosition.col + sightArea.col; i++) {
                 Position position = new Position(CharacterManager.Singleton.Hero.currentPosition.row + (isUp ? 1 : -1) * sightArea.row, i);
                 if (checkMap.ContainsKey(position)) {
-                    checkMap[position].color = Color.white;
+                    checkMap[position].color = whiteAlphaColor;
                 }
             }
         }

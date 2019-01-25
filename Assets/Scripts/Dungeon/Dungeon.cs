@@ -2,68 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public struct Position : IEquatable<Position> {
-    public int row;
-    public int col;
-
-    public Position(int row, int col) {
-        this.row = row;
-        this.col = col;
-    }
-
-    public static bool operator ==(Position position1, Position position2) {
-        return position1.col == position2.col && position1.row == position2.row;
-    }
-
-    public static bool operator !=(Position position1, Position position2) {
-        return position1.col != position2.col || position1.row != position2.row;
-    }
-
-    public static Position operator +(Position position1, Position position2) {
-        return new Position(position1.row + position2.row, position1.col + position2.col);
-    }
-
-    public static Position operator -(Position position1, Position position2) {
-        return new Position(position1.row - position2.row, position1.col - position2.col);
-    }
-
-    public static bool operator >(Position position1, Position position2) {
-        return position1.row > position2.row && position1.col > position2.col;
-    }
-
-    public static bool operator >=(Position position1, Position position2) {
-        return position1.row >= position2.row && position1.col >= position2.col;
-    }
-
-    public static bool operator <(Position position1, Position position2) {
-        return position1.row < position2.row && position1.col < position2.col;
-    }
-
-    public static bool operator <=(Position position1, Position position2) {
-        return position1.row <= position2.row && position1.col <= position2.col;
-    }
-
-    public bool Equals(Position other) {
-        return this.row.Equals(other.row) && this.col.Equals(other.col);
-    }
-
-    public Position Left() {
-        return new Position(this.row, this.col - 1);
-    }
-
-    public Position Right() {
-        return new Position(this.row, this.col + 1);
-    }
-
-    public Position Bottom() {
-        return new Position(this.row - 1, this.col);
-    }
-
-    public Position Top() {
-        return new Position(this.row + 1, this.col);
-    }
-}
-
 public class Dungeon {
 
     /// <summary>
@@ -161,6 +99,10 @@ public class Dungeon {
         }
 
         return false;
+    }
+
+    public bool IsInPath(Position position) {
+        return SurroundCount(position, dungeonMap, true) == 2;
     }
 
     /// <summary>
@@ -329,29 +271,38 @@ public class Dungeon {
     /// <param name="pos">Position.</param>
     /// <param name="map">Map.</param>
     private bool IsSurround(Position pos, Dictionary<Position, BaseTile> map) {
+
+        return SurroundCount(pos, map) > 2;
+    }
+
+    private int SurroundCount(Position pos, Dictionary<Position, BaseTile> map, bool checkReach = false) {
         int count = 0;
 
         Position left = pos.Left();
         if (map.ContainsKey(left)) {
-            count++;
+            if (!checkReach || map[left].reach)
+                count++;
         }
 
         Position right = pos.Right();
         if (map.ContainsKey(right)) {
-            count++;
+            if (!checkReach || map[right].reach)
+                count++;
         }
 
         Position bottom = pos.Bottom();
         if (map.ContainsKey(bottom)) {
-            count++;
+            if (!checkReach || map[bottom].reach)
+                count++;
         }
 
         Position top = pos.Top();
         if (map.ContainsKey(top)) {
-            count++;
+            if (!checkReach || map[top].reach)
+                count++;
         }
 
-        return count > 2;
+        return count;
     }
 
     /// <summary>

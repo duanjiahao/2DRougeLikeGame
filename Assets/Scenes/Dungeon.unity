@@ -121,6 +121,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 245330529}
+  - component: {fileID: 245330530}
   m_Layer: 5
   m_Name: LittleMapContainer
   m_TagString: Untagged
@@ -147,6 +148,17 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 150, y: 150}
   m_Pivot: {x: 1, y: 1}
+--- !u!225 &245330530
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 245330528}
+  m_Enabled: 1
+  m_Alpha: 0.9
+  m_Interactable: 0
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &299393893
 GameObject:
   m_ObjectHideFlags: 0
@@ -515,7 +527,7 @@ RectTransform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1049986377}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -974,6 +986,7 @@ MonoBehaviour:
   DungeonContainer: {fileID: 1065430055}
   LittleMapContainer: {fileID: 245330529}
   canvasScaler: {fileID: 1454501645}
+  mask: {fileID: 0}
   left: {fileID: 1586889341}
   right: {fileID: 1706615172}
   up: {fileID: 687946024}

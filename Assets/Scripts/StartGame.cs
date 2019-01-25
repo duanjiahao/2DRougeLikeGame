@@ -71,8 +71,9 @@ public class StartGame : MonoBehaviour {
 
     private void LateUpdate() {
         if (CharacterManager.Singleton.Hero != null && CharacterManager.Singleton.Hero.go != null) {
-            Vector3 distance = CharacterManager.Singleton.Hero.go.transform.localPosition - UICamera.transform.localPosition;
-            UICamera.transform.localPosition += distance * Time.smoothDeltaTime * 5f;
+            //Vector3 distance = CharacterManager.Singleton.Hero.go.transform.localPosition - UICamera.transform.localPosition;
+            //UICamera.transform.localPosition += distance * Time.smoothDeltaTime * 5f;
+            UICamera.transform.localPosition = CharacterManager.Singleton.Hero.go.transform.localPosition;
         }
     }
 
