@@ -22,8 +22,11 @@ public class StartGame : MonoBehaviour {
     IEnumerator Restart() {
         yield return null;
         ResourceManager.Singleton.UnloadAllResource();
+        yield return null;
         CharacterManager.Singleton.RemoveAllCharacter();
+        yield return null;
         DungeonManager.Singleton.StartNewDungeon();
+        yield return null;
         CharacterManager.Singleton.GenerateHero();
         yield return null;
         LittleMapManager.Singleton.DrawLittleMap();
@@ -56,11 +59,15 @@ public class StartGame : MonoBehaviour {
         CharacterManager.Singleton.Update();
         LittleMapManager.Singleton.Update();
 
-        if (CharacterManager.Singleton.Hero.go != null) {
+
+	}
+
+    private void LateUpdate() {
+        if (CharacterManager.Singleton.Hero != null && CharacterManager.Singleton.Hero.go != null) {
             Vector3 distance = CharacterManager.Singleton.Hero.go.transform.localPosition - UICamera.transform.localPosition;
             UICamera.transform.localPosition += distance * Time.smoothDeltaTime * 5f;
         }
-	}
+    }
 
     /// <summary>
     /// 接收点击事件，后边要集成到InputContoller里

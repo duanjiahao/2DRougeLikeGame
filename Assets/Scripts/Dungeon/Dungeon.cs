@@ -357,14 +357,14 @@ public class Dungeon {
         int currentCol = startPos.col;
         while (currentCol != endPos.col) {
             Position pos = new Position(startPos.row, currentCol);
-            if (!map.ContainsKey(pos)) {
+            if (!map.ContainsKey(pos) && !newMap.ContainsKey(pos)) {
                 map.Add(pos, new ReachTile());
             }
 
             currentCol = currentCol + (currentCol < endPos.col ? 1 : -1);
         }
         Position colPos = new Position(startPos.row, currentCol);
-        if (!map.ContainsKey(colPos)) {
+        if (!map.ContainsKey(colPos) && !newMap.ContainsKey(colPos)) {
             map.Add(colPos, new ReachTile());
         }
 

@@ -34,6 +34,7 @@ public class CharacterManager {
         this.Container = container;
         Characters = new List<BaseCharacter>();
         this.startGame = startGame;
+        check = true;
     }
 
     public void AddCharacter(BaseCharacter baseCharacter) {
@@ -42,13 +43,16 @@ public class CharacterManager {
 
     public void RemoveAllCharacter() {
         Characters.Clear();
+        Hero = null;
     }
 
     public void GenerateHero() {
         Hero = new Hero(Container);
         Characters.Add(Hero);
+        check = false;
     }
 
+    private bool check = false;
     public void Update() {
         CheckIfReachDeKuChi();
     }
@@ -57,8 +61,9 @@ public class CharacterManager {
     /// 检查是否到达出口
     /// </summary>
     private void CheckIfReachDeKuChi() {
-        if (Hero.currentPosition.Equals(DungeonManager.Singleton.CurrentDungeon.EndPoint)) {
+        if (!check && Hero != null && Hero.currentPosition.Equals(DungeonManager.Singleton.CurrentDungeon.EndPoint)) {
             startGame.RestartAll();
+            check = true;
         }
     }
 }
