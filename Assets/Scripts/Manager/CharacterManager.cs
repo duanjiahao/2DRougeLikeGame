@@ -61,7 +61,7 @@ public class CharacterManager {
     /// 检查是否到达出口
     /// </summary>
     private void CheckIfReachDeKuChi() {
-        if (!check && Hero != null && Hero.currentPosition.Equals(DungeonManager.Singleton.CurrentDungeon.EndPoint)) {
+        if (!check && Hero != null && Hero.currentPosition == DungeonManager.Singleton.CurrentDungeon.EndPoint) {
             startGame.RestartAll();
             check = true;
         }

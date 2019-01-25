@@ -11,6 +11,38 @@ public struct Position : IEquatable<Position> {
         this.col = col;
     }
 
+    public static bool operator ==(Position position1, Position position2) {
+        return position1.col == position2.col && position1.row == position2.row;
+    }
+
+    public static bool operator !=(Position position1, Position position2) {
+        return position1.col != position2.col || position1.row != position2.row;
+    }
+
+    public static Position operator +(Position position1, Position position2) {
+        return new Position(position1.row + position2.row, position1.col + position2.col);
+    }
+
+    public static Position operator -(Position position1, Position position2) {
+        return new Position(position1.row - position2.row, position1.col - position2.col);
+    }
+
+    public static bool operator >(Position position1, Position position2) {
+        return position1.row > position2.row && position1.col > position2.col;
+    }
+
+    public static bool operator >=(Position position1, Position position2) {
+        return position1.row >= position2.row && position1.col >= position2.col;
+    }
+
+    public static bool operator <(Position position1, Position position2) {
+        return position1.row < position2.row && position1.col < position2.col;
+    }
+
+    public static bool operator <=(Position position1, Position position2) {
+        return position1.row <= position2.row && position1.col <= position2.col;
+    }
+
     public bool Equals(Position other) {
         return this.row.Equals(other.row) && this.col.Equals(other.col);
     }
@@ -184,7 +216,7 @@ public class Dungeon {
             return;
         }
 
-        if (EndPoint.Equals(pos)) {
+        if (EndPoint == pos) {
             map.Add(pos, new DekuchiTile());
         } else {
             map.Add(pos, new ReachTile());
@@ -243,7 +275,7 @@ public class Dungeon {
         return new Position(UnityEngine.Random.Range(0, Size), UnityEngine.Random.Range(0, Size));
     }
 
-    private bool IsValidPosition(Position positon) {
+    public bool IsValidPosition(Position positon) {
         return positon.row >= 0 && positon.row < Size && positon.col >= 0 && positon.col < Size;
     }
 

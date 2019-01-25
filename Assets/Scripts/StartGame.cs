@@ -20,6 +20,7 @@ public class StartGame : MonoBehaviour {
     }
 
     IEnumerator Restart() {
+        needStop = true;
         yield return null;
         ResourceManager.Singleton.UnloadAllResource();
         yield return null;
@@ -30,6 +31,8 @@ public class StartGame : MonoBehaviour {
         CharacterManager.Singleton.GenerateHero();
         yield return null;
         LittleMapManager.Singleton.DrawLittleMap();
+        yield return null;
+        needStop = false;
     }
 
 	// Use this for initialization
@@ -42,24 +45,28 @@ public class StartGame : MonoBehaviour {
         CharacterManager.Singleton.Init(heroContainer, this);
 
         DungeonManager.Singleton.StartNewDungeon();
-        LittleMapManager.Singleton.Init(LittleMapContainer, canvasScaler);
-        LittleMapManager.Singleton.DrawLittleMap();
         CharacterManager.Singleton.GenerateHero();
 
+        LittleMapManager.Singleton.Init(LittleMapContainer, canvasScaler);
+        LittleMapManager.Singleton.DrawLittleMap();
+
         UICamera.transform.localPosition = new Vector3(DungeonManager.Singleton.CurrentDungeon.StartPoint.col * Utils.TILE_SIZE, DungeonManager.Singleton.CurrentDungeon.StartPoint.row * Utils.TILE_SIZE);
+        AddEvent();
 
         //记录耗时
         Debug.LogWarning(Time.realtimeSinceStartup - currentTime);
-        AddEvent();
     }
 
+    private bool needStop;
     // Update is called once per frame
-    void FixedUpdate() {
+    void Update() {
+        if (needStop) {
+            return;
+        }
+
         InputController.Singleton.Update();
         CharacterManager.Singleton.Update();
         LittleMapManager.Singleton.Update();
-
-
 	}
 
     private void LateUpdate() {

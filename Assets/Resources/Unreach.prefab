@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 224805416324462568}
   - component: {fileID: 222956541007744722}
-  - component: {fileID: 114930923896136332}
+  - component: {fileID: 114562246282856102}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -43,7 +43,7 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &114930923896136332
+--- !u!114 &114562246282856102
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
