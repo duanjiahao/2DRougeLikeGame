@@ -15,6 +15,7 @@ public class StartGame : MonoBehaviour {
     public PressComponent right;
     public PressComponent up;
     public PressComponent down;
+    public PressComponent attack;
 
     public void RestartAll() {
         StartCoroutine("Restart");

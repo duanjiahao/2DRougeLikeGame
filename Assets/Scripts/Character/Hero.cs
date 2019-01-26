@@ -33,12 +33,15 @@ public class Hero : BaseCharacter {
     private bool hasSetOnce;
     private float time;
     public override void Init() {
+        time = 0f;
         hasSetOnce = false;
         calculateComplete = false;
         animator.ResetTrigger("Up");
         animator.ResetTrigger("Down");
         animator.ResetTrigger("Left");
         animator.ResetTrigger("Right");
+        animator.ResetTrigger("Attack");
+        animator.SetFloat("AttackTime", 0f);
     }
 
     private Vector3 endPosition;
@@ -149,5 +152,20 @@ public class Hero : BaseCharacter {
         }
 
         return true;
+    }
+
+    public bool Attack() {
+        time += Time.deltaTime;
+
+        if (!hasSetOnce) {
+            animator.SetTrigger("Attack");
+            hasSetOnce = true;
+        }
+
+        if (time > 1f) {
+            animator.SetFloat("AttackTime", 2f);
+            return true;
+        }
+        return false;
     }
 }

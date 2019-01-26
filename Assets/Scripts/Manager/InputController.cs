@@ -7,6 +7,7 @@ public enum ActionType {
     Donw = 2,
     Left = 3,
     Right = 4,
+    Attack = 5,
 }
 
 public class InputController {
@@ -38,6 +39,7 @@ public class InputController {
         actionMap.Add(ActionType.Donw, Down);
         actionMap.Add(ActionType.Left, Left);
         actionMap.Add(ActionType.Right, Right);
+        actionMap.Add(ActionType.Attack, Attack);
         AddEvent();
     }
 
@@ -70,6 +72,11 @@ public class InputController {
             return;
         }
 
+        if (Input.GetKey(KeyCode.K)) {
+            DispatchAction(ActionType.Attack);
+            return;
+        }
+
         currentAction = null;
     }
 
@@ -91,6 +98,7 @@ public class InputController {
         startGame.right.OnPress.AddListener(OnRightClick);
         startGame.up.OnPress.AddListener(OnUpClick);
         startGame.down.OnPress.AddListener(OnDownClick);
+        startGame.attack.OnPress.AddListener(OnAttackClick);
     }
 
     private void OnDownClick() {
@@ -107,6 +115,10 @@ public class InputController {
 
     private void OnLeftClick() {
         InputController.Singleton.DispatchAction(ActionType.Left);
+    }
+
+    private void OnAttackClick() {
+        InputController.Singleton.DispatchAction(ActionType.Attack);
     }
 
     #region Action Event 
@@ -182,6 +194,20 @@ public class InputController {
             isAllCompelte = isAllCompelte && character.Move(CharacterDirction.UP);
         }
         if (isAllCompelte) {
+            setOnce = false;
+            currentAction = null;
+            isControlling = false;
+        }
+    }
+
+    private void Attack() {
+        if (!setOnce) {
+            CharacterManager.Singleton.Hero.Init();
+            setOnce = true;
+        }
+
+        bool complete = CharacterManager.Singleton.Hero.Attack();
+        if (complete) {
             setOnce = false;
             currentAction = null;
             isControlling = false;
