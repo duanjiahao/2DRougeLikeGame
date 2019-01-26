@@ -102,7 +102,49 @@ public class Dungeon {
     }
 
     public bool IsInPath(Position position) {
-        return SurroundCount(position, dungeonMap, true) == 2;
+        Position top = position.Top();
+        Position left = position.Left();
+        Position right = position.Right();
+        Position bottom = position.Bottom();
+
+        Position topLeft = top.Left();
+        Position topRight = top.Right();
+        Position bottomLeft = bottom.Left();
+        Position bottomRight = bottom.Right();
+
+        if (CanReach(top)) {
+            if (CanReach(topRight) && CanReach(right)) {
+                return false;
+            }
+        }
+
+        if (CanReach(right)) {
+            if (CanReach(bottomRight) && CanReach(bottom)) {
+                return false;
+            }
+        }
+
+        if (CanReach(bottom)) {
+            if (CanReach(bottomLeft) && CanReach(left)) {
+                return false;
+            }
+        }
+
+        if (CanReach(left)) {
+            if (CanReach(topLeft) && CanReach(top)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /// <summary>
+    /// 判断一个positon在map中是否存在，如果存在，是否reach
+    /// </summary>
+    /// <returns><c>true</c>, if reach was caned, <c>false</c> otherwise.</returns>
+    private bool CanReach(Position position) {
+        return dungeonMap.ContainsKey(position) && dungeonMap[position].reach;
     }
 
     /// <summary>
@@ -275,7 +317,7 @@ public class Dungeon {
         return SurroundCount(pos, map) > 2;
     }
 
-    private int SurroundCount(Position pos, Dictionary<Position, BaseTile> map, bool checkReach = false) {
+    private int SurroundCount(Position pos, Dictionary<Position, BaseTile> map,  bool checkEightDir = false, bool checkReach = false) {
         int count = 0;
 
         Position left = pos.Left();
@@ -300,6 +342,32 @@ public class Dungeon {
         if (map.ContainsKey(top)) {
             if (!checkReach || map[top].reach)
                 count++;
+        }
+
+        if (checkEightDir) {
+            Position topRight = top.Right();
+            if (map.ContainsKey(topRight)) {
+                if (!checkReach || map[topRight].reach)
+                    count++;
+            }
+
+            Position topLeft = top.Left();
+            if (map.ContainsKey(topLeft)) {
+                if (!checkReach || map[topLeft].reach)
+                    count++;
+            }
+
+            Position bottomRight = bottom.Right();
+            if (map.ContainsKey(bottomRight)) {
+                if (!checkReach || map[bottomRight].reach)
+                    count++;
+            }
+
+            Position bottomLeft = bottom.Left();
+            if (map.ContainsKey(bottomLeft)) {
+                if (!checkReach || map[bottomLeft].reach)
+                    count++;
+            }
         }
 
         return count;

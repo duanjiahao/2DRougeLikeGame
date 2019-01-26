@@ -9,6 +9,7 @@ public class StartGame : MonoBehaviour {
     public Transform DungeonContainer;
     public Transform LittleMapContainer;
     public CanvasScaler canvasScaler;
+    public GameObject mask;
 
     public PressComponent left;
     public PressComponent right;

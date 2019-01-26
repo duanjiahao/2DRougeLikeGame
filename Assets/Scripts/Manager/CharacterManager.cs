@@ -49,6 +49,7 @@ public class CharacterManager {
         Hero = new Hero(Container);
         Characters.Add(Hero);
         lastHeroPosition = Hero.currentPosition;
+        CheckIfInPath();
     }
 
     private Position lastHeroPosition;
@@ -74,10 +75,10 @@ public class CharacterManager {
     /// </summary>
     /// <value>The check if in path.</value>
     private void CheckIfInPath() {
-        //if (DungeonManager.Singleton.CurrentDungeon.IsInPath(Hero.currentPosition)) {
-        //    startGame.mask.enabled = true;
-        //} else {
-        //    startGame.mask.enabled = false;
-        //}
+        if (DungeonManager.Singleton.CurrentDungeon.IsInPath(Hero.currentPosition)) {
+            startGame.mask.SetActive(true);
+        } else {
+            startGame.mask.SetActive(false);
+        }
     }
 }
