@@ -41,7 +41,7 @@ public class StartGame : MonoBehaviour {
         float currentTime = Time.realtimeSinceStartup;
 
         ResourceManager.Singleton.Init();
-        InputController.Singleton.Init();
+        InputController.Singleton.Init(this);
         DungeonManager.Singleton.Init(DungeonContainer);
         CharacterManager.Singleton.Init(heroContainer, this);
 
@@ -52,7 +52,6 @@ public class StartGame : MonoBehaviour {
         LittleMapManager.Singleton.DrawLittleMap();
 
         UICamera.transform.localPosition = new Vector3(DungeonManager.Singleton.CurrentDungeon.StartPoint.col * Utils.TILE_SIZE, DungeonManager.Singleton.CurrentDungeon.StartPoint.row * Utils.TILE_SIZE);
-        AddEvent();
 
         //记录耗时
         Debug.LogWarning(Time.realtimeSinceStartup - currentTime);
@@ -76,31 +75,5 @@ public class StartGame : MonoBehaviour {
             //UICamera.transform.localPosition += distance * Time.smoothDeltaTime * 5f;
             UICamera.transform.localPosition = CharacterManager.Singleton.Hero.go.transform.localPosition;
         }
-    }
-
-    /// <summary>
-    /// 接收点击事件，后边要集成到InputContoller里
-    /// </summary>
-    private void AddEvent() {
-        left.OnPress.AddListener(OnLeftClick);
-        right.OnPress.AddListener(OnRightClick);
-        up.OnPress.AddListener(OnUpClick);
-        down.OnPress.AddListener(OnDownClick);
-    }
-
-    private void OnDownClick() {
-        InputController.Singleton.DispatchAction(ActionType.Donw);
-    }
-
-    private void OnUpClick() {
-        InputController.Singleton.DispatchAction(ActionType.Up);
-    }
-
-    private void OnRightClick() {
-        InputController.Singleton.DispatchAction(ActionType.Right);
-    }
-
-    private void OnLeftClick() {
-        InputController.Singleton.DispatchAction(ActionType.Left);
     }
 }

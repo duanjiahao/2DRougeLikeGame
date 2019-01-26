@@ -21,13 +21,16 @@ public class InputController {
         }
     }
 
+    private StartGame startGame;
+
     private bool isControlling;
 
     private Action currentAction;
 
     private Dictionary<ActionType, Action> actionMap;
 
-    public void Init() {
+    public void Init(StartGame startGame) {
+        this.startGame = startGame;
         isControlling = false;
         currentAction = null;
         actionMap = new Dictionary<ActionType, Action>();
@@ -35,6 +38,7 @@ public class InputController {
         actionMap.Add(ActionType.Donw, Down);
         actionMap.Add(ActionType.Left, Left);
         actionMap.Add(ActionType.Right, Right);
+        AddEvent();
     }
 
     public void Update() {
@@ -79,6 +83,31 @@ public class InputController {
         currentAction.Invoke();
     }
 
+    /// <summary>
+    /// 接收点击事件
+    /// </summary>
+    private void AddEvent() {
+        startGame.left.OnPress.AddListener(OnLeftClick);
+        startGame.right.OnPress.AddListener(OnRightClick);
+        startGame.up.OnPress.AddListener(OnUpClick);
+        startGame.down.OnPress.AddListener(OnDownClick);
+    }
+
+    private void OnDownClick() {
+        InputController.Singleton.DispatchAction(ActionType.Donw);
+    }
+
+    private void OnUpClick() {
+        InputController.Singleton.DispatchAction(ActionType.Up);
+    }
+
+    private void OnRightClick() {
+        InputController.Singleton.DispatchAction(ActionType.Right);
+    }
+
+    private void OnLeftClick() {
+        InputController.Singleton.DispatchAction(ActionType.Left);
+    }
 
     #region Action Event 
     private bool setOnce = false;
