@@ -47,9 +47,19 @@ public class CharacterManager {
 
     public void GenerateHero() {
         Hero = new Hero(Container);
+        Hero.Init();
         Characters.Add(Hero);
         lastHeroPosition = Hero.currentPosition;
         CheckIfInPath();
+    }
+
+    public void GenerateMonsters() {
+        List<Position> positions = DungeonManager.Singleton.CurrentDungeon.GenerateMonsterPositons();
+        foreach (Position positon in positions) {
+            Monster monster = new Monster(Container, positon);
+            monster.Init();
+            Characters.Add(monster);
+        }
     }
 
     private Position lastHeroPosition;

@@ -27,7 +27,7 @@ public class DungeonManager {
     }
 
     public void StartNewDungeon() {
-        CurrentDungeon = new Dungeon(20, 5, 20, 0);
+        CurrentDungeon = new Dungeon(20, 5, 20, 3);
         CurrentDungeon.GenerateDungeon();
         CurrentDungeon.DrawDungeon(Container);
     }

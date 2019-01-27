@@ -4,7 +4,7 @@ using UnityEngine;
 
 public enum ActionType {
     Up = 1,
-    Donw = 2,
+    Down = 2,
     Left = 3,
     Right = 4,
     Attack = 5,
@@ -36,7 +36,7 @@ public class InputController {
         currentAction = null;
         actionMap = new Dictionary<ActionType, Action>();
         actionMap.Add(ActionType.Up, Up);
-        actionMap.Add(ActionType.Donw, Down);
+        actionMap.Add(ActionType.Down, Down);
         actionMap.Add(ActionType.Left, Left);
         actionMap.Add(ActionType.Right, Right);
         actionMap.Add(ActionType.Attack, Attack);
@@ -58,7 +58,7 @@ public class InputController {
         }
 
         if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S)) {
-            DispatchAction(ActionType.Donw);
+            DispatchAction(ActionType.Down);
             return;
         }
 
@@ -85,6 +85,10 @@ public class InputController {
             return;
         }
 
+        foreach (BaseCharacter character in CharacterManager.Singleton.Characters) {
+            character.isActing = true;
+        }
+
         isControlling = true;
         currentAction = actionMap[actionType];
         currentAction.Invoke();
@@ -102,7 +106,7 @@ public class InputController {
     }
 
     private void OnDownClick() {
-        InputController.Singleton.DispatchAction(ActionType.Donw);
+        InputController.Singleton.DispatchAction(ActionType.Down);
     }
 
     private void OnUpClick() {
@@ -122,93 +126,58 @@ public class InputController {
     }
 
     #region Action Event 
-    private bool setOnce = false;
     private void Right() {
-        if (!setOnce) {
-            foreach (BaseCharacter character in CharacterManager.Singleton.Characters) {
-                character.Init();
-            }
-            setOnce = true;
-        }
-
         bool isAllCompelte = true;
         foreach (BaseCharacter character in CharacterManager.Singleton.Characters) {
-            isAllCompelte = isAllCompelte && character.Move(CharacterDirction.RIGHT);
+            isAllCompelte = character.Move(CharacterDirction.RIGHT) && isAllCompelte;
         }
+
         if (isAllCompelte) {
-            setOnce = false;
             currentAction = null;
             isControlling = false;
         }
     }
 
     private void Left() {
-        if (!setOnce) {
-            foreach (BaseCharacter character in CharacterManager.Singleton.Characters) {
-                character.Init();
-            }
-            setOnce = true;
-        }
-
         bool isAllCompelte = true;
         foreach (BaseCharacter character in CharacterManager.Singleton.Characters) {
-            isAllCompelte = isAllCompelte && character.Move(CharacterDirction.LEFT);
+            isAllCompelte = character.Move(CharacterDirction.LEFT) && isAllCompelte;
         }
         if (isAllCompelte) {
-            setOnce = false;
             currentAction = null;
             isControlling = false;
         }
     }
 
     private void Down() {
-        if (!setOnce) {
-            foreach (BaseCharacter character in CharacterManager.Singleton.Characters) {
-                character.Init();
-            }
-            setOnce = true;
-        }
-
         bool isAllCompelte = true;
         foreach (BaseCharacter character in CharacterManager.Singleton.Characters) {
-            isAllCompelte = isAllCompelte && character.Move(CharacterDirction.DOWN);
+            isAllCompelte = character.Move(CharacterDirction.DOWN) && isAllCompelte;
         }
 
         if (isAllCompelte) {
-            setOnce = false;
             currentAction = null;
             isControlling = false;
         }
     }
 
     private void Up() {
-        if (!setOnce) {
-            foreach (BaseCharacter character in CharacterManager.Singleton.Characters) {
-                character.Init();
-            }
-            setOnce = true;
-        }
-
         bool isAllCompelte = true;
         foreach (BaseCharacter character in CharacterManager.Singleton.Characters) {
-            isAllCompelte = isAllCompelte && character.Move(CharacterDirction.UP);
+            isAllCompelte = character.Move(CharacterDirction.UP) && isAllCompelte;
         }
         if (isAllCompelte) {
-            setOnce = false;
             currentAction = null;
             isControlling = false;
         }
     }
 
     private void Attack() {
-        if (!setOnce) {
-            CharacterManager.Singleton.Hero.Init();
-            setOnce = true;
+        bool isAllCompelte = true;
+        foreach (BaseCharacter character in CharacterManager.Singleton.Characters) {
+            isAllCompelte = character.Attack() && isAllCompelte;
         }
-
-        bool complete = CharacterManager.Singleton.Hero.Attack();
-        if (complete) {
-            setOnce = false;
+        if (isAllCompelte) {
             currentAction = null;
             isControlling = false;
         }

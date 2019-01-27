@@ -35,4 +35,58 @@ public static class Utils {
                 break;
         }
     }
+
+    public static void SetTriggerByDirction(Animator animator, CharacterDirction dirction) {
+        switch (dirction) {
+            case CharacterDirction.DOWN:
+                animator.SetTrigger("Down");
+                break;
+            case CharacterDirction.UP:
+                animator.SetTrigger("Up");
+                break;
+            case CharacterDirction.LEFT:
+                animator.SetTrigger("Left");
+                break;
+            case CharacterDirction.RIGHT:
+                animator.SetTrigger("Right");
+                break;
+            default:
+                break;
+        }
+    }
+
+    public static CharacterDirction GetDirction(Position myPos, Position youPos) {
+        if (myPos.Left() == youPos) {
+            return CharacterDirction.LEFT;
+        }
+        if (myPos.Bottom() == youPos) {
+            return CharacterDirction.DOWN;
+        }
+        if (myPos.Right() == youPos) {
+            return CharacterDirction.RIGHT;
+        }
+        if (myPos.Top() == youPos) {
+            return CharacterDirction.UP;
+        }
+        return CharacterDirction.DOWN;
+    }
+
+    public static Position GetPositonByDirction(Position myPos, CharacterDirction dirction) {
+        switch (dirction) {
+            case CharacterDirction.DOWN:
+                return myPos.Bottom();
+            case CharacterDirction.UP:
+                return myPos.Top();
+            case CharacterDirction.LEFT:
+                return myPos.Left();
+            case CharacterDirction.RIGHT:
+                return myPos.Right();
+            default:
+                return myPos;
+        }
+    }
+
+    public static bool IsInAttackRange(Position myPosition, Position youPosition) {
+        return myPosition.Left() == youPosition || myPosition.Right() == youPosition || myPosition.Top() == youPosition || myPosition.Bottom() == youPosition;
+    }
 }

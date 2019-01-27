@@ -70,6 +70,18 @@ public class Dungeon {
         }
     }
 
+    public List<Position> GenerateMonsterPositons() {
+        List<Position> positions = new List<Position>();
+        for (int i = 0; i < Diffculty;) {
+            Position position = GenerateRandomPosition();
+            if (dungeonMap.ContainsKey(position) && dungeonMap[position].reach) {
+                positions.Add(position);
+                i++;
+            }
+        }
+        return positions;
+    }
+
     public bool CanMove(CharacterDirction dirction, Position position) {
         switch (dirction) {
             case CharacterDirction.UP:

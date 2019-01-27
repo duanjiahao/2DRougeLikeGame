@@ -32,6 +32,8 @@ public class StartGame : MonoBehaviour {
         yield return null;
         CharacterManager.Singleton.GenerateHero();
         yield return null;
+        CharacterManager.Singleton.GenerateMonsters();
+        yield return null;
         LittleMapManager.Singleton.DrawLittleMap();
         yield return null;
         needStop = false;
@@ -48,6 +50,7 @@ public class StartGame : MonoBehaviour {
 
         DungeonManager.Singleton.StartNewDungeon();
         CharacterManager.Singleton.GenerateHero();
+        CharacterManager.Singleton.GenerateMonsters();
 
         LittleMapManager.Singleton.Init(LittleMapContainer, canvasScaler);
         LittleMapManager.Singleton.DrawLittleMap();
