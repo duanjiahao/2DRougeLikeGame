@@ -9,7 +9,11 @@ public enum CharacterDirction {
 
 public abstract class BaseCharacter {
 
+    public bool isActing;
+
     public Position currentPosition;
+
+    public CharacterDirction currentDirction;
 
     public string prefabPath;
 
@@ -18,4 +22,8 @@ public abstract class BaseCharacter {
     public abstract void Init();
 
     public abstract bool Move(CharacterDirction dirction);
+
+    public abstract void ChangeDirction(CharacterDirction dirction);
+
+    public abstract bool Attack();
 }
