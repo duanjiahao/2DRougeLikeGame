@@ -87,25 +87,25 @@ public class Dungeon {
             case CharacterDirction.UP:
                 Position top = position.Top();
                 if (dungeonMap.ContainsKey(top)) {
-                    return dungeonMap[top].reach;
+                    return dungeonMap[top].reach && !CharacterManager.Singleton.IsCharacterInPositon(top);
                 }
                 break;
             case CharacterDirction.DOWN:
                 Position bottom = position.Bottom();
                 if (dungeonMap.ContainsKey(bottom)) {
-                    return dungeonMap[bottom].reach;
+                    return dungeonMap[bottom].reach && !CharacterManager.Singleton.IsCharacterInPositon(bottom);
                 }
                 break;
             case CharacterDirction.LEFT:
                 Position left = position.Left();
                 if (dungeonMap.ContainsKey(left)) {
-                    return dungeonMap[left].reach;
+                    return dungeonMap[left].reach && !CharacterManager.Singleton.IsCharacterInPositon(left);
                 }
                 break;
             case CharacterDirction.RIGHT:
                 Position right = position.Right();
                 if (dungeonMap.ContainsKey(right)) {
-                    return dungeonMap[right].reach;
+                    return dungeonMap[right].reach && !CharacterManager.Singleton.IsCharacterInPositon(right);
                 }
                 break;
         }

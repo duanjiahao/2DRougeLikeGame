@@ -39,6 +39,11 @@ public class StartGame : MonoBehaviour {
         needStop = false;
     }
 
+    IEnumerator StartRemoveCharacter(BaseCharacter baseCharacter) {
+        yield return null;
+        CharacterManager.Singleton.Characters.Remove(baseCharacter);
+    }
+
 	// Use this for initialization
 	void Start () {
         float currentTime = Time.realtimeSinceStartup;

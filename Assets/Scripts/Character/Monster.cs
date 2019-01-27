@@ -72,22 +72,16 @@ public class Monster : Character {
     private void AllInit() {
         // 这里的actionType表示的是英雄的动作
         if (actionType == ActionType.Attack) {
-            if (currentPosition == Utils.GetPositonByDirction(CharacterManager.Singleton.Hero.currentPosition, CharacterManager.Singleton.Hero.currentDirction)) { 
-                ChangeDirction(Utils.GetDirction(currentPosition, CharacterManager.Singleton.Hero.currentPosition));
+            if (currentPosition == Utils.GetPositonByDirction(CharacterManager.Singleton.Hero.currentPosition, CharacterManager.Singleton.Hero.currentDirction)) {
+                //ChangeDirction(Utils.GetDirction(currentPosition, CharacterManager.Singleton.Hero.currentPosition));
                 // 受到攻击
-
+                // test
+                Death();
             }
 
-            WhatToDo(CharacterManager.Singleton.Hero.currentPosition);
-            if (toDoAction != ActionType.Attack) {
-                toDoOnceActionMap[toDoAction].Invoke();
-            } else {
-                hasSetAttackInit = false;
-            }
-            return;
         }
 
-        WhatToDo(Utils.GetPositonByDirction(CharacterManager.Singleton.Hero.currentPosition, (CharacterDirction)actionType));
+        WhatToDo(CharacterManager.Singleton.Hero.currentPosition);
         if (toDoAction != ActionType.Attack) {
             toDoOnceActionMap[toDoAction].Invoke();
         } else {
@@ -108,5 +102,10 @@ public class Monster : Character {
             }
         }
         return toDoUpdateActionMap[toDoAction].Invoke();
+    }
+
+    private void Death() {
+        ResourceManager.Singleton.Unload(go);
+        CharacterManager.Singleton.RemoveCharacter(this);
     }
 }

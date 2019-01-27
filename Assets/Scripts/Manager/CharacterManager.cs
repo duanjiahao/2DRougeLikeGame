@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 
 public class CharacterManager {
@@ -40,6 +41,10 @@ public class CharacterManager {
         Characters.Add(baseCharacter);
     }
 
+    public void RemoveCharacter(BaseCharacter baseCharacter) {
+        startGame.StartCoroutine("StartRemoveCharacter", baseCharacter);
+    }
+
     public void RemoveAllCharacter() {
         Characters.Clear();
         Hero = null;
@@ -64,7 +69,7 @@ public class CharacterManager {
 
     private Position lastHeroPosition;
     public void Update() {
-        if (Hero != null && Hero.currentPosition != lastHeroPosition) {
+        if (Hero != null && !Hero.isActing && Hero.currentPosition != lastHeroPosition) {
             CheckIfReachDeKuChi();
             CheckIfInPath();
             lastHeroPosition = Hero.currentPosition;
@@ -90,5 +95,14 @@ public class CharacterManager {
         } else {
             startGame.mask.SetActive(false);
         }
+    }
+
+    public bool IsCharacterInPositon(Position position) {
+        foreach (BaseCharacter character in Characters) {
+            if (position == character.currentPosition) {
+                return true;
+            }
+        }
+        return false;
     }
 }

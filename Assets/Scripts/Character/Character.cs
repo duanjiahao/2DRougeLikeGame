@@ -102,6 +102,9 @@ public class Character : BaseCharacter {
         animator.SetTrigger("Down");
         currentDirction = CharacterDirction.DOWN;
         endPosition = go.transform.localPosition + Vector3.down * Utils.TILE_SIZE;
+        if (canMove) {
+            currentPosition = currentPosition.Bottom();
+        }
     }
 
     protected virtual bool DownUpdate() {
@@ -109,7 +112,6 @@ public class Character : BaseCharacter {
             go.transform.localPosition += Vector3.down * Time.smoothDeltaTime * 2f * Utils.TILE_SIZE;
             if (go.transform.localPosition.y <= endPosition.y) {
                 go.transform.localPosition = endPosition;
-                currentPosition = currentPosition.Bottom();
                 return true;
             } else {
                 return false;
@@ -124,6 +126,9 @@ public class Character : BaseCharacter {
         currentDirction = CharacterDirction.UP;
         animator.SetTrigger("Up");
         endPosition = go.transform.localPosition + Vector3.up * Utils.TILE_SIZE;
+        if (canMove) {
+            currentPosition = currentPosition.Top();
+        }
     }
 
     protected virtual bool UpUpdate() {
@@ -131,7 +136,6 @@ public class Character : BaseCharacter {
             go.transform.localPosition += Vector3.up * Time.smoothDeltaTime * 2f * Utils.TILE_SIZE;
             if (go.transform.localPosition.y >= endPosition.y) {
                 go.transform.localPosition = endPosition;
-                currentPosition = currentPosition.Top();
                 return true;
             } else {
                 return false;
@@ -145,6 +149,9 @@ public class Character : BaseCharacter {
         animator.SetTrigger("Left");
         currentDirction = CharacterDirction.LEFT;
         endPosition = go.transform.localPosition + Vector3.left * Utils.TILE_SIZE;
+        if (canMove) {
+            currentPosition = currentPosition.Left();
+        }
     }
 
     protected virtual bool LeftUpdate() {
@@ -152,7 +159,6 @@ public class Character : BaseCharacter {
             go.transform.localPosition += Vector3.left * Time.smoothDeltaTime * 2f * Utils.TILE_SIZE;
             if (go.transform.localPosition.x <= endPosition.x) {
                 go.transform.localPosition = endPosition;
-                currentPosition = currentPosition.Left();
                 return true;
             } else {
                 return false;
@@ -166,6 +172,9 @@ public class Character : BaseCharacter {
         animator.SetTrigger("Right");
         currentDirction = CharacterDirction.RIGHT;
         endPosition = go.transform.localPosition + Vector3.right * Utils.TILE_SIZE;
+        if (canMove) {
+            currentPosition = currentPosition.Right();
+        }
     }
 
     protected virtual bool RightUpdate() {
@@ -173,7 +182,6 @@ public class Character : BaseCharacter {
             go.transform.localPosition += Vector3.right * Time.smoothDeltaTime * 2f * Utils.TILE_SIZE;
             if (go.transform.localPosition.x >= endPosition.x) {
                 go.transform.localPosition = endPosition;
-                currentPosition = currentPosition.Right();
                 return true;
             } else {
                 return false;
