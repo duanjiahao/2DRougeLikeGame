@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public enum CharacterDirction {
+public enum CharacterDirection {
     UP = 1,
     DOWN = 2,
     LEFT = 3,
@@ -13,7 +13,7 @@ public abstract class BaseCharacter {
 
     public Position currentPosition;
 
-    public CharacterDirction currentDirction;
+    public CharacterDirection currentDirction;
 
     public string prefabPath;
 
@@ -21,9 +21,9 @@ public abstract class BaseCharacter {
 
     public abstract void Init();
 
-    public abstract bool Move(CharacterDirction dirction);
+    public abstract bool Move(CharacterDirection dirction);
 
-    public abstract void ChangeDirction(CharacterDirction dirction);
+    public abstract void ChangeDirction(CharacterDirection dirction);
 
     public abstract bool Attack();
 }

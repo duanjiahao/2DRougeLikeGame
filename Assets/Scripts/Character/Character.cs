@@ -35,18 +35,18 @@ public class Character : BaseCharacter {
         updateActionMap.Add(ActionType.Attack, AttackUpdate);
     }
 
-    public override bool Move(CharacterDirction dirction) {
+    public override bool Move(CharacterDirection dirction) {
         switch (dirction) {
-            case CharacterDirction.DOWN:
+            case CharacterDirection.DOWN:
                 actionType = ActionType.Down;
                 break;
-            case CharacterDirction.UP:
+            case CharacterDirection.UP:
                 actionType = ActionType.Up;
                 break;
-            case CharacterDirction.LEFT:
+            case CharacterDirection.LEFT:
                 actionType = ActionType.Left;
                 break;
-            case CharacterDirction.RIGHT:
+            case CharacterDirection.RIGHT:
                 actionType = ActionType.Right;
                 break;
             default:
@@ -61,7 +61,7 @@ public class Character : BaseCharacter {
         return Update();
     }
 
-    public override void ChangeDirction(CharacterDirction dirction) {
+    public override void ChangeDirction(CharacterDirection dirction) {
         Utils.SetTriggerByDirction(animator, dirction);
     }
 
@@ -98,9 +98,9 @@ public class Character : BaseCharacter {
     private Vector3 endPosition;
     private bool canMove;
     protected virtual void DownInit() {
-        canMove = DungeonManager.Singleton.CurrentDungeon.CanMove(CharacterDirction.DOWN, currentPosition);
+        canMove = DungeonManager.Singleton.CurrentDungeon.CanMove(CharacterDirection.DOWN, currentPosition);
         animator.SetTrigger("Down");
-        currentDirction = CharacterDirction.DOWN;
+        currentDirction = CharacterDirection.DOWN;
         endPosition = go.transform.localPosition + Vector3.down * Utils.TILE_SIZE;
         if (canMove) {
             currentPosition = currentPosition.Bottom();
@@ -122,8 +122,8 @@ public class Character : BaseCharacter {
     }
 
     protected virtual void UpInit() {
-        canMove = DungeonManager.Singleton.CurrentDungeon.CanMove(CharacterDirction.UP, currentPosition);
-        currentDirction = CharacterDirction.UP;
+        canMove = DungeonManager.Singleton.CurrentDungeon.CanMove(CharacterDirection.UP, currentPosition);
+        currentDirction = CharacterDirection.UP;
         animator.SetTrigger("Up");
         endPosition = go.transform.localPosition + Vector3.up * Utils.TILE_SIZE;
         if (canMove) {
@@ -145,9 +145,9 @@ public class Character : BaseCharacter {
     }
 
     protected virtual void LeftInit() {
-        canMove = DungeonManager.Singleton.CurrentDungeon.CanMove(CharacterDirction.LEFT, currentPosition);
+        canMove = DungeonManager.Singleton.CurrentDungeon.CanMove(CharacterDirection.LEFT, currentPosition);
         animator.SetTrigger("Left");
-        currentDirction = CharacterDirction.LEFT;
+        currentDirction = CharacterDirection.LEFT;
         endPosition = go.transform.localPosition + Vector3.left * Utils.TILE_SIZE;
         if (canMove) {
             currentPosition = currentPosition.Left();
@@ -168,9 +168,9 @@ public class Character : BaseCharacter {
     }
 
     protected virtual void RightInit() {
-        canMove = DungeonManager.Singleton.CurrentDungeon.CanMove(CharacterDirction.RIGHT, currentPosition);
+        canMove = DungeonManager.Singleton.CurrentDungeon.CanMove(CharacterDirection.RIGHT, currentPosition);
         animator.SetTrigger("Right");
-        currentDirction = CharacterDirction.RIGHT;
+        currentDirction = CharacterDirection.RIGHT;
         endPosition = go.transform.localPosition + Vector3.right * Utils.TILE_SIZE;
         if (canMove) {
             currentPosition = currentPosition.Right();

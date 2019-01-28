@@ -9,6 +9,6 @@ public class Hero : Character {
         prefabPath = "Hero";
         go = Utils.DrawCharacter(this, container);
         animator = go.GetComponentInChildren<Animator>();
-        currentDirction = CharacterDirction.DOWN;
+        currentDirction = CharacterDirection.DOWN;
     }
 }
