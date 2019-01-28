@@ -82,27 +82,117 @@ public class Dungeon {
         return positions;
     }
 
-    public bool CanMove(CharacterDirction dirction, Position position) {
+    /// <summary>
+    /// 生成monster到达hero的最短路径(AStar)
+    /// </summary>
+    /// <returns>The moster path.</returns>
+    public List<Position> GenerateMonsterPath(Position currentPositon) {
+        List<Position> close = new List<Position>();
+        List<Position> open = new List<Position>();
+        List<Position> itorList = new List<Position>();
+        //key是地图位置，value是G,H(row,col) G->row, H->col
+        Dictionary<Position, Position> recordMap = new Dictionary<Position, Position>();
+        //key是地图位置，value存的是该位置的方向(用以反推路径)
+        Dictionary<Position, CharacterDirection> directionMap = new Dictionary<Position, CharacterDirection>();
+
+        open.Add(currentPositon);
+        recordMap.Add(currentPositon, new Position(0, GetH(currentPositon)));
+        do {
+            Position position = GetSmallestOpenNode(open, recordMap);
+            open.Remove(position);
+            close.Add(position);
+
+            if (position == CharacterManager.Singleton.Hero.currentPosition) {
+                break;
+            }
+
+            int g = recordMap[position].row + 1;
+
+            itorList.Clear();
+            itorList.Add(position.Top());
+            itorList.Add(position.Bottom());
+            itorList.Add(position.Left());
+            itorList.Add(position.Right());
+
+            for (int i = 0; i < itorList.Count; i++) {
+                Position pos = itorList[i];
+                if (!close.Contains(pos) && CanReach(pos)) {
+                    int h = GetH(pos);
+                    if (recordMap.ContainsKey(pos)) {
+                        if (g + h < recordMap[pos].totalCount()) {
+                            recordMap[pos] = new Position(g, h);
+                            directionMap[pos] = (CharacterDirection)(i + 1);
+                        }
+                    } else {
+                        open.Add(pos);
+                        recordMap.Add(pos, new Position(g, h));
+                        directionMap[pos] = (CharacterDirection)(i + 1);
+                    }
+                }
+            }
+        } while (open.Count > 0);
+
+        List<Position> path = new List<Position>();
+        Position lastPos = close[close.Count - 1];
+        while (directionMap.ContainsKey(lastPos)) {
+            path.Insert(0, lastPos);
+            lastPos = Utils.GetPositonByDirction(lastPos, Utils.InverseDirection(directionMap[lastPos]));
+        }
+
+        return path;
+    }
+
+    /// <summary>
+    /// 根据生成的路径，判断下一步走哪个方向
+    /// </summary>
+    /// <returns>The next direction.</returns>
+    public CharacterDirection GetNextDirection(Position position) {
+        List<Position> path = GenerateMonsterPath(position);
+        return Utils.GetDirction(position, path[0]);
+    }
+
+    private int GetH(Position position) {
+        return (CharacterManager.Singleton.Hero.currentPosition - position).totalCount();
+    }
+
+    private Position GetSmallestOpenNode(List<Position> open, Dictionary<Position, Position> recordMap) {
+        if (open.Count == 1) {
+            return open[0];
+        }
+
+        int smallestF = int.MaxValue;
+        Position smallestPositon = open[0];
+        foreach (Position pos in open) {
+            int f = recordMap[pos].totalCount();
+            if (f < smallestF) {
+                smallestF = f;
+                smallestPositon = pos;
+            }
+        }
+        return smallestPositon;
+    }
+
+    public bool CanMove(CharacterDirection dirction, Position position) {
         switch (dirction) {
-            case CharacterDirction.UP:
+            case CharacterDirection.UP:
                 Position top = position.Top();
                 if (dungeonMap.ContainsKey(top)) {
                     return dungeonMap[top].reach && !CharacterManager.Singleton.IsCharacterInPositon(top);
                 }
                 break;
-            case CharacterDirction.DOWN:
+            case CharacterDirection.DOWN:
                 Position bottom = position.Bottom();
                 if (dungeonMap.ContainsKey(bottom)) {
                     return dungeonMap[bottom].reach && !CharacterManager.Singleton.IsCharacterInPositon(bottom);
                 }
                 break;
-            case CharacterDirction.LEFT:
+            case CharacterDirection.LEFT:
                 Position left = position.Left();
                 if (dungeonMap.ContainsKey(left)) {
                     return dungeonMap[left].reach && !CharacterManager.Singleton.IsCharacterInPositon(left);
                 }
                 break;
-            case CharacterDirction.RIGHT:
+            case CharacterDirection.RIGHT:
                 Position right = position.Right();
                 if (dungeonMap.ContainsKey(right)) {
                     return dungeonMap[right].reach && !CharacterManager.Singleton.IsCharacterInPositon(right);

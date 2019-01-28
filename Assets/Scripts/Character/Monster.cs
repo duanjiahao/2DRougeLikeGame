@@ -4,14 +4,14 @@ using System.Collections.Generic;
 
 public class Monster : Character {
 
-    private Position sightArea = new Position(3, 3);
+    private Position sightArea = new Position(4, 4);
 
     public Monster(Transform container, Position position) {
         currentPosition = position;
         prefabPath = "Hero";
         go = Utils.DrawCharacter(this, container);
         animator = go.GetComponentInChildren<Animator>();
-        currentDirction = CharacterDirction.DOWN;
+        currentDirction = CharacterDirection.DOWN;
     }
 
     public override void Init() {
@@ -61,12 +61,7 @@ public class Monster : Character {
             return;
         }
 
-        Position gap = heroPositon - currentPosition;
-        if (Mathf.Abs(gap.row) > Mathf.Abs(gap.col)) {
-            toDoAction = gap.row > 0 ? ActionType.Up : ActionType.Down;
-        } else {
-            toDoAction = gap.col > 0 ? ActionType.Right : ActionType.Left;
-        }
+        toDoAction = (ActionType)DungeonManager.Singleton.CurrentDungeon.GetNextDirection(currentPosition);
     }
 
     private void AllInit() {
