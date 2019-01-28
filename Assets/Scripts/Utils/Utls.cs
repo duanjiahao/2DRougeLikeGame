@@ -36,18 +36,18 @@ public static class Utils {
         }
     }
 
-    public static void SetTriggerByDirction(Animator animator, CharacterDirction dirction) {
+    public static void SetTriggerByDirction(Animator animator, CharacterDirection dirction) {
         switch (dirction) {
-            case CharacterDirction.DOWN:
+            case CharacterDirection.DOWN:
                 animator.SetTrigger("Down");
                 break;
-            case CharacterDirction.UP:
+            case CharacterDirection.UP:
                 animator.SetTrigger("Up");
                 break;
-            case CharacterDirction.LEFT:
+            case CharacterDirection.LEFT:
                 animator.SetTrigger("Left");
                 break;
-            case CharacterDirction.RIGHT:
+            case CharacterDirection.RIGHT:
                 animator.SetTrigger("Right");
                 break;
             default:
@@ -55,31 +55,31 @@ public static class Utils {
         }
     }
 
-    public static CharacterDirction GetDirction(Position myPos, Position youPos) {
+    public static CharacterDirection GetDirction(Position myPos, Position youPos) {
         if (myPos.Left() == youPos) {
-            return CharacterDirction.LEFT;
+            return CharacterDirection.LEFT;
         }
         if (myPos.Bottom() == youPos) {
-            return CharacterDirction.DOWN;
+            return CharacterDirection.DOWN;
         }
         if (myPos.Right() == youPos) {
-            return CharacterDirction.RIGHT;
+            return CharacterDirection.RIGHT;
         }
         if (myPos.Top() == youPos) {
-            return CharacterDirction.UP;
+            return CharacterDirection.UP;
         }
-        return CharacterDirction.DOWN;
+        return CharacterDirection.DOWN;
     }
 
-    public static Position GetPositonByDirction(Position myPos, CharacterDirction dirction) {
+    public static Position GetPositonByDirction(Position myPos, CharacterDirection dirction) {
         switch (dirction) {
-            case CharacterDirction.DOWN:
+            case CharacterDirection.DOWN:
                 return myPos.Bottom();
-            case CharacterDirction.UP:
+            case CharacterDirection.UP:
                 return myPos.Top();
-            case CharacterDirction.LEFT:
+            case CharacterDirection.LEFT:
                 return myPos.Left();
-            case CharacterDirction.RIGHT:
+            case CharacterDirection.RIGHT:
                 return myPos.Right();
             default:
                 return myPos;
@@ -87,6 +87,22 @@ public static class Utils {
     }
 
     public static bool IsInAttackRange(Position myPosition, Position youPosition) {
-        return myPosition.Left() == youPosition || myPosition.Right() == youPosition || myPosition.Top() == youPosition || myPosition.Bottom() == youPosition;
+        Position gap = myPosition - youPosition;
+        return gap == Position.P01 || gap == Position.P10 || gap == Position.P01 * -1 || gap == Position.P10 * -1;
+    }
+
+    public static CharacterDirection InverseDirection(CharacterDirection characterDirction) {
+        switch (characterDirction) {
+            case CharacterDirection.DOWN:
+                return CharacterDirection.UP;
+            case CharacterDirection.UP:
+                return CharacterDirection.DOWN;
+            case CharacterDirection.LEFT:
+                return CharacterDirection.RIGHT;
+            case CharacterDirection.RIGHT:
+                return CharacterDirection.LEFT;
+            default:
+                return characterDirction;
+        }
     }
 }

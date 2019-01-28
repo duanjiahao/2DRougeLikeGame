@@ -129,7 +129,7 @@ public class InputController {
     private void Right() {
         bool isAllCompelte = true;
         foreach (BaseCharacter character in CharacterManager.Singleton.Characters) {
-            isAllCompelte = character.Move(CharacterDirction.RIGHT) && isAllCompelte;
+            isAllCompelte = character.Move(CharacterDirection.RIGHT) && isAllCompelte;
         }
 
         if (isAllCompelte) {
@@ -141,7 +141,7 @@ public class InputController {
     private void Left() {
         bool isAllCompelte = true;
         foreach (BaseCharacter character in CharacterManager.Singleton.Characters) {
-            isAllCompelte = character.Move(CharacterDirction.LEFT) && isAllCompelte;
+            isAllCompelte = character.Move(CharacterDirection.LEFT) && isAllCompelte;
         }
         if (isAllCompelte) {
             currentAction = null;
@@ -152,7 +152,7 @@ public class InputController {
     private void Down() {
         bool isAllCompelte = true;
         foreach (BaseCharacter character in CharacterManager.Singleton.Characters) {
-            isAllCompelte = character.Move(CharacterDirction.DOWN) && isAllCompelte;
+            isAllCompelte = character.Move(CharacterDirection.DOWN) && isAllCompelte;
         }
 
         if (isAllCompelte) {
@@ -164,7 +164,7 @@ public class InputController {
     private void Up() {
         bool isAllCompelte = true;
         foreach (BaseCharacter character in CharacterManager.Singleton.Characters) {
-            isAllCompelte = character.Move(CharacterDirction.UP) && isAllCompelte;
+            isAllCompelte = character.Move(CharacterDirection.UP) && isAllCompelte;
         }
         if (isAllCompelte) {
             currentAction = null;
