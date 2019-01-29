@@ -47,12 +47,15 @@ public class CharacterManager {
 
     public void RemoveAllCharacter() {
         Characters.Clear();
-        Hero = null;
     }
 
     public void GenerateHero() {
-        Hero = new Hero(Container);
-        Hero.Init();
+        if (Hero == null) {
+            Hero = new Hero(Container);
+            Hero.Init();
+        } else {
+            Hero.SetHeroData(Container);
+        }
         Characters.Add(Hero);
         lastHeroPosition = Hero.currentPosition;
         CheckIfInPath();
@@ -75,6 +78,15 @@ public class CharacterManager {
             lastHeroPosition = Hero.currentPosition;
         }
     }
+
+    public BaseCharacter GetCharacterByPositon(Position position) {
+        foreach (BaseCharacter character in Characters) {
+            if (character.currentPosition == position) {
+                return character;
+            }
+        }
+        return null;
+    } 
 
     /// <summary>
     /// 检查是否到达出口

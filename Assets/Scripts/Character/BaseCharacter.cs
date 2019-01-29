@@ -9,7 +9,25 @@ public enum CharacterDirection {
 
 public abstract class BaseCharacter {
 
+    public int Exp{ get; set; }
+
+    public int NeedExp{ get { return Lvl * 50; } }
+
+    public int CurExp{ get; set; }
+
+    public bool IsHero { get; protected set; }
+
     public bool isActing;
+
+    public int MaxLife { get; set; }
+
+    public int CurLife{ get; set; }
+
+    public int Atk { get; set; }
+
+    public int Lvl { get; set; }
+
+    public int Damage { get { return Atk * Lvl; } }
 
     public Position currentPosition;
 
@@ -26,4 +44,6 @@ public abstract class BaseCharacter {
     public abstract void ChangeDirction(CharacterDirection dirction);
 
     public abstract bool Attack();
+
+    public abstract void Death();
 }

@@ -15,7 +15,6 @@ public class LittleMapManager {
     }
 
     Dictionary<Position, Image> checkMap;
-    Queue<Position> lightArea;
 
     public Transform Container {
         get;
@@ -32,7 +31,6 @@ public class LittleMapManager {
 
     public void Init(Transform littleMapContainer, CanvasScaler canvasScaler) {
         checkMap = new Dictionary<Position, Image>();
-        lightArea = new Queue<Position>();
         this.Container = littleMapContainer;
         PER_SIZE = MAP_SIZE / (DungeonManager.Singleton.CurrentDungeon.Size + 2);
         sightArea = new Position(Mathf.FloorToInt(canvasScaler.referenceResolution.y / Utils.TILE_SIZE / 2f), Mathf.FloorToInt(canvasScaler.referenceResolution.x / Utils.TILE_SIZE / 2f));

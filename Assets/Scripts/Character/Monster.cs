@@ -12,6 +12,10 @@ public class Monster : Character {
         go = Utils.DrawCharacter(this, container);
         animator = go.GetComponentInChildren<Animator>();
         currentDirction = CharacterDirection.DOWN;
+        IsHero = false;
+        MaxLife = CurLife = 50;
+        Atk = 5;
+        Exp = 50;
     }
 
     public override void Init() {
@@ -65,19 +69,8 @@ public class Monster : Character {
     }
 
     private void AllInit() {
-        // 这里的actionType表示的是英雄的动作
-        if (actionType == ActionType.Attack) {
-            if (currentPosition == Utils.GetPositonByDirction(CharacterManager.Singleton.Hero.currentPosition, CharacterManager.Singleton.Hero.currentDirction)) {
-                //ChangeDirction(Utils.GetDirction(currentPosition, CharacterManager.Singleton.Hero.currentPosition));
-                // 受到攻击
-                // test
-                Death();
-            }
-
-        }
-
         WhatToDo(CharacterManager.Singleton.Hero.currentPosition);
-        if (toDoAction != ActionType.Attack) {
+        if (actionType != ActionType.Attack && toDoAction != ActionType.Attack) {
             toDoOnceActionMap[toDoAction].Invoke();
         } else {
             hasSetAttackInit = false;
@@ -86,7 +79,7 @@ public class Monster : Character {
 
     private bool hasSetAttackInit = false;
     private bool AllUpdate() {
-        if (toDoAction == ActionType.Attack) {
+        if (toDoAction == ActionType.Attack || actionType == ActionType.Attack) {
             if (CharacterManager.Singleton.Hero.isActing) {
                 return false;
             }
@@ -99,7 +92,7 @@ public class Monster : Character {
         return toDoUpdateActionMap[toDoAction].Invoke();
     }
 
-    private void Death() {
+    public override void Death() {
         ResourceManager.Singleton.Unload(go);
         CharacterManager.Singleton.RemoveCharacter(this);
     }

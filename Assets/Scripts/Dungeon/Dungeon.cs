@@ -248,7 +248,7 @@ public class Dungeon {
     private bool CanReach(Position position) {
         return dungeonMap.ContainsKey(position) && dungeonMap[position].reach;
     }
-
+   
     /// <summary>
     /// 1.递归生成一个一个room
     /// 2.检查该room是否与总地图有重合部分（相邻也不行）

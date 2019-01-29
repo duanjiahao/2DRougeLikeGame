@@ -16,7 +16,12 @@ public class Character : BaseCharacter {
     protected Animator animator;
 
     protected Dictionary<ActionType, Action> onceActionMap; 
-    protected Dictionary<ActionType, Func<bool>> updateActionMap; 
+    protected Dictionary<ActionType, Func<bool>> updateActionMap;
+
+    public Character() {
+        Lvl = 1;
+        CurExp = 0;
+    }
 
     public override void Init() {
         onceActionMap = new Dictionary<ActionType, Action>();
@@ -63,6 +68,7 @@ public class Character : BaseCharacter {
 
     public override void ChangeDirction(CharacterDirection dirction) {
         Utils.SetTriggerByDirction(animator, dirction);
+        currentDirction = dirction;
     }
 
     private bool hasSetOnce;
@@ -191,9 +197,14 @@ public class Character : BaseCharacter {
     }
 
     private float time;
+    private BaseCharacter character;
     protected virtual void AttackInit() {
         time = 0f;
         animator.SetTrigger("Attack");
+        character = CharacterManager.Singleton.GetCharacterByPositon(Utils.GetPositonByDirction(currentPosition, currentDirction));
+        if (character != null) {
+            PerformAttack();
+        }
     }
 
     protected virtual bool AttackUpdate() {
@@ -203,5 +214,25 @@ public class Character : BaseCharacter {
             return true;
         }
         return false;
+    }
+
+    public override void Death() {
+    }
+
+    private void PerformAttack() {
+        character.CurLife -= Damage;
+        if (character.CurLife <= 0) {
+            character.Death();
+            PerformExp();
+        }
+    }
+
+    private void PerformExp() {
+        CurExp += character.Exp;
+        if (CurExp >= NeedExp) {
+            CurExp -= NeedExp;
+            Lvl++;
+            Debug.LogFormat("Level Up!!!");
+        }
     }
 }
