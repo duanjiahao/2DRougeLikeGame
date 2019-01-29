@@ -8,7 +8,7 @@ public class Monster : Character {
 
     public Monster(Transform container, Position position) {
         currentPosition = position;
-        prefabPath = "Hero";
+        prefabPath = "Monster";
         go = Utils.DrawCharacter(this, container);
         animator = go.GetComponentInChildren<Animator>();
         currentDirction = CharacterDirection.DOWN;
