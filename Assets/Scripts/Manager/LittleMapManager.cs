@@ -26,14 +26,14 @@ public class LittleMapManager {
     private Color whiteAlphaColor = new Color(1f, 1f, 1f, 0.9f);
     private Color blackAlphaColor = new Color(0f, 0f, 0f, 0f);
     private GameObject littleHero;
-    private Position sightArea;
+    private Position sightArea = new Position(3, 3);
     private float PER_SIZE;
 
-    public void Init(Transform littleMapContainer, CanvasScaler canvasScaler) {
+    public void Init(Transform littleMapContainer, Camera uiCamera) {
         checkMap = new Dictionary<Position, Image>();
         this.Container = littleMapContainer;
         PER_SIZE = MAP_SIZE / (DungeonManager.Singleton.CurrentDungeon.Size + 2);
-        sightArea = new Position(Mathf.FloorToInt(canvasScaler.referenceResolution.y / Utils.TILE_SIZE / 2f), Mathf.FloorToInt(canvasScaler.referenceResolution.x / Utils.TILE_SIZE / 2f));
+        sightArea = new Position(Mathf.FloorToInt(uiCamera.orthographicSize), Mathf.FloorToInt(uiCamera.orthographicSize * uiCamera.aspect));
         lastPositon = CharacterManager.Singleton.Hero.currentPosition;
     }
 
@@ -42,13 +42,9 @@ public class LittleMapManager {
         int dungeonSize = DungeonManager.Singleton.CurrentDungeon.Size;
         Dictionary<Position, BaseTile>.Enumerator itor = DungeonManager.Singleton.CurrentDungeon.DungeonMap.GetEnumerator();
         while (itor.MoveNext()) {
-            GameObject go = ResourceManager.Singleton.Instantiate(itor.Current.Value.image, Container);
+            GameObject go = ResourceManager.Singleton.Instantiate(itor.Current.Value.liitleMapImg, Container);
             RectTransform rectTransform = go.GetComponent<RectTransform>();
             rectTransform.sizeDelta = Vector2.one * PER_SIZE;
-            rectTransform.anchorMin = Vector2.one;
-            rectTransform.anchorMax = Vector2.one;
-            rectTransform.pivot = Vector2.one;
-
             go.transform.localPosition = new Vector3((itor.Current.Key.col - dungeonSize) * PER_SIZE, (itor.Current.Key.row - dungeonSize) * PER_SIZE);
             Image image = go.GetComponentInChildren<Image>();
             image.color = IsInSight(itor.Current.Key) ? whiteAlphaColor : blackAlphaColor;

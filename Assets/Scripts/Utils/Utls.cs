@@ -2,7 +2,7 @@
 
 public static class Utils {
 
-    public const float TILE_SIZE = 50f;
+    public const float TILE_SIZE = 1f;
 
     public static GameObject DrawTile(Position pos, BaseTile tile, Transform transform) {
         GameObject go = ResourceManager.Singleton.Instantiate(tile.image, transform);

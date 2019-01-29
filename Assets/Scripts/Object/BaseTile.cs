@@ -7,6 +7,8 @@
 
 public abstract class BaseTile {
 
+    public string liitleMapImg;
+
     public string image;
 
     public ImageDirction dirction;
