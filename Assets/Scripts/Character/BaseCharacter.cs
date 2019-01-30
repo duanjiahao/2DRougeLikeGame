@@ -9,11 +9,22 @@ public enum CharacterDirection {
 
 public abstract class BaseCharacter {
 
-    public int Exp{ get; set; }
+    public int Exp { get; set; }
 
     public int NeedExp{ get { return Lvl * 50; } }
 
-    public int CurExp{ get; set; }
+    private int _curExp;
+    public int CurExp{
+        get {
+            return _curExp;
+        }
+        set {
+            _curExp = value;
+            if (IsHero) {
+                CharacterManager.Singleton.startGame.statusPanel.UpdateStatusInfo();
+            }
+        }
+    }
 
     public bool IsHero { get; protected set; }
 
@@ -21,11 +32,31 @@ public abstract class BaseCharacter {
 
     public int MaxLife { get; set; }
 
-    public int CurLife{ get; set; }
+    private int _curLife;
+    public int CurLife{
+        get {
+            return _curLife;
+        } set {
+            _curLife = value;
+            if (IsHero) {
+                CharacterManager.Singleton.startGame.statusPanel.UpdateStatusInfo();
+            }
+        }
+    }
 
     public int Atk { get; set; }
 
-    public int Lvl { get; set; }
+    private int _lvl;
+    public int Lvl { 
+        get {
+            return _lvl;
+        } set {
+            _lvl = value;
+            if (IsHero) {
+                CharacterManager.Singleton.startGame.statusPanel.UpdateStatusInfo();
+            }
+        }
+    }
 
     public int Damage { get { return Atk * Lvl; } }
 

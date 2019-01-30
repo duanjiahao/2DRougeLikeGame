@@ -24,6 +24,10 @@ public class Character : BaseCharacter {
     }
 
     public override void Init() {
+        if (IsHero) {
+            CharacterManager.Singleton.startGame.statusPanel.UpdateStatusInfo();
+        }
+
         onceActionMap = new Dictionary<ActionType, Action>();
         updateActionMap = new Dictionary<ActionType, Func<bool>>();
 

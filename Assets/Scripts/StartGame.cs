@@ -11,12 +11,18 @@ public class StartGame : MonoBehaviour {
     public Transform DungeonContainer;
     public Transform LittleMapContainer;
     public GameObject mask;
+    public StatusPanel statusPanel;
 
     public PressComponent left;
     public PressComponent right;
     public PressComponent up;
     public PressComponent down;
     public PressComponent attack;
+
+    public Button leftDir;
+    public Button rightDir;
+    public Button upDir;
+    public Button downDir;
 
     public void RestartAll() {
         StartCoroutine("Restart");

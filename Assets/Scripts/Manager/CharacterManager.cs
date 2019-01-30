@@ -29,7 +29,7 @@ public class CharacterManager {
         private set;
     }
 
-    private StartGame startGame;
+    public StartGame startGame;
 
     public void Init(Transform container, StartGame startGame) {
         this.Container = container;
