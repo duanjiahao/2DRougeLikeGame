@@ -40,6 +40,8 @@ public abstract class BaseCharacter {
             _curLife = value;
             if (IsHero) {
                 CharacterManager.Singleton.startGame.statusPanel.UpdateStatusInfo();
+            } else{
+                (this as Monster).UpdateLife();
             }
         }
     }

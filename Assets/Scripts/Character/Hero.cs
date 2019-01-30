@@ -11,7 +11,7 @@ public class Hero : Character {
         animator = go.GetComponentInChildren<Animator>();
         currentDirction = CharacterDirection.DOWN;
         IsHero = true;
-        MaxLife = CurLife = 100;
+        CurLife = MaxLife = 100;
         Atk = 10;
     }
 

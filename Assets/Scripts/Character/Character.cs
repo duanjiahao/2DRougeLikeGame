@@ -71,6 +71,7 @@ public class Character : BaseCharacter {
     }
 
     public override void ChangeDirction(CharacterDirection dirction) {
+        ResetAllState();
         Utils.SetTriggerByDirction(animator, dirction);
         currentDirction = dirction;
     }

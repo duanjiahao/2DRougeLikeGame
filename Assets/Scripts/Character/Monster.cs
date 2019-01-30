@@ -6,14 +6,17 @@ public class Monster : Character {
 
     private Position sightArea = new Position(4, 4);
 
+    private SpriteRenderer life;
+
     public Monster(Transform container, Position position) {
         currentPosition = position;
         prefabPath = "Monster";
         go = Utils.DrawCharacter(this, container);
         animator = go.GetComponentInChildren<Animator>();
+        life = go.transform.Find("life").GetComponent<SpriteRenderer>();
         currentDirction = CharacterDirection.DOWN;
         IsHero = false;
-        MaxLife = CurLife = 50;
+        CurLife = MaxLife = 50;
         Atk = 5;
         Exp = 50;
     }
@@ -95,5 +98,15 @@ public class Monster : Character {
     public override void Death() {
         ResourceManager.Singleton.Unload(go);
         CharacterManager.Singleton.RemoveCharacter(this);
+    }
+
+    public void UpdateLife() {
+        Debug.LogWarning("CurLife: " + CurLife + " MaxLife: " + MaxLife);
+        if (CurLife == MaxLife) {
+            life.gameObject.SetActive(false);
+            return;
+        }
+        life.gameObject.SetActive(true);
+        life.material.SetFloat("_Progress", (float)CurLife / MaxLife);
     }
 }
