@@ -103,6 +103,27 @@ public class InputController {
         startGame.up.OnPress.AddListener(OnUpClick);
         startGame.down.OnPress.AddListener(OnDownClick);
         startGame.attack.OnPress.AddListener(OnAttackClick);
+
+        startGame.upDir.onClick.AddListener(OnUpDirClick);
+        startGame.downDir.onClick.AddListener(OnDownDirClick);
+        startGame.leftDir.onClick.AddListener(OnLeftDirClick);
+        startGame.rightDir.onClick.AddListener(OnRightDirClick);
+    }
+
+    private void OnRightDirClick() {
+        CharacterManager.Singleton.Hero.ChangeDirction(CharacterDirection.RIGHT);
+    }
+
+    private void OnLeftDirClick() {
+        CharacterManager.Singleton.Hero.ChangeDirction(CharacterDirection.LEFT);
+    }
+
+    private void OnDownDirClick() {
+        CharacterManager.Singleton.Hero.ChangeDirction(CharacterDirection.DOWN);
+    }
+
+    private void OnUpDirClick() {
+        CharacterManager.Singleton.Hero.ChangeDirction(CharacterDirection.UP);
     }
 
     private void OnDownClick() {
