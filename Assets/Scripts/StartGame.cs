@@ -89,7 +89,7 @@ public class StartGame : MonoBehaviour {
         if (CharacterManager.Singleton.Hero != null && CharacterManager.Singleton.Hero.go != null) {
             //Vector3 distance = CharacterManager.Singleton.Hero.go.transform.localPosition - UICamera.transform.localPosition;
             //UICamera.transform.localPosition += distance * Time.smoothDeltaTime * 5f;
-            mainCamera.transform.localPosition = CharacterManager.Singleton.Hero.go.transform.localPosition;
+            mainCamera.transform.localPosition = new Vector2(CharacterManager.Singleton.Hero.go.transform.localPosition.x, CharacterManager.Singleton.Hero.go.transform.localPosition.y);
         }
     }
 }
