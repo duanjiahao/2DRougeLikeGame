@@ -7,13 +7,13 @@ public static class Utils {
     public static GameObject DrawTile(Position pos, BaseTile tile, Transform transform) {
         GameObject go = ResourceManager.Singleton.Instantiate(tile.image, transform);
         FlipGameObject(go, tile.dirction);
-        go.transform.localPosition = new Vector2(pos.col * TILE_SIZE, pos.row * TILE_SIZE);
+        go.transform.localPosition = new Vector3(pos.col * TILE_SIZE, pos.row * TILE_SIZE, 100);
         return go;
     }
 
     public static GameObject DrawCharacter(BaseCharacter character, Transform transform) {
         GameObject go = ResourceManager.Singleton.Instantiate(character.prefabPath, transform);
-        go.transform.localPosition = new Vector2(character.currentPosition.col * TILE_SIZE, character.currentPosition.row * TILE_SIZE);
+        go.transform.localPosition = new Vector3(character.currentPosition.col * TILE_SIZE, character.currentPosition.row * TILE_SIZE, character.currentPosition.row);
         return go;
     }
 

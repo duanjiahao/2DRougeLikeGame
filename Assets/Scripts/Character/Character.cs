@@ -112,6 +112,7 @@ public class Character : BaseCharacter {
         animator.SetTrigger("Down");
         currentDirction = CharacterDirection.DOWN;
         endPosition = go.transform.localPosition + Vector3.down * Utils.TILE_SIZE;
+        endPosition -= new Vector3(0, 0, 1);
         if (canMove) {
             currentPosition = currentPosition.Bottom();
         }
@@ -136,6 +137,7 @@ public class Character : BaseCharacter {
         currentDirction = CharacterDirection.UP;
         animator.SetTrigger("Up");
         endPosition = go.transform.localPosition + Vector3.up * Utils.TILE_SIZE;
+        endPosition += new Vector3(0, 0, 1);
         if (canMove) {
             currentPosition = currentPosition.Top();
         }
