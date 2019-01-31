@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using System.Collections.Generic;
 
 public enum CharacterDirection {
     UP = 1,
@@ -8,6 +10,9 @@ public enum CharacterDirection {
 }
 
 public abstract class BaseCharacter {
+
+    public Queue<Func<bool>> MoveActionQueue;
+    public Queue<Func<bool>> OtherActionQueue;
 
     public int Exp { get; set; }
 
@@ -28,7 +33,11 @@ public abstract class BaseCharacter {
 
     public bool IsHero { get; protected set; }
 
-    public bool isActing;
+    public bool IsActing {
+        get {
+            return MoveActionQueue.Count + OtherActionQueue.Count > 0;
+        }
+    }
 
     public int MaxLife { get; set; }
 
@@ -72,11 +81,12 @@ public abstract class BaseCharacter {
 
     public abstract void Init();
 
-    public abstract bool Move(CharacterDirection dirction);
-
+    public abstract bool MoveLeft();
+    public abstract bool MoveRight();
+    public abstract bool MoveUp();
+    public abstract bool MoveDown();
     public abstract void ChangeDirction(CharacterDirection dirction);
-
     public abstract bool Attack();
-
+    public abstract bool BeAttack();
     public abstract void Death();
 }

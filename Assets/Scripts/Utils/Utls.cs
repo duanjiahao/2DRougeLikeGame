@@ -105,4 +105,20 @@ public static class Utils {
                 return characterDirction;
         }
     }
+
+    public static Position GetHeroPosition(ActionType actionType) {
+        switch (actionType) {
+            case ActionType.Up:
+            case ActionType.Down:
+            case ActionType.Left:
+            case ActionType.Right:
+                if (DungeonManager.Singleton.CurrentDungeon.CanMove((CharacterDirection)actionType, CharacterManager.Singleton.Hero.currentPosition)){
+                    return Utils.GetPositonByDirction(CharacterManager.Singleton.Hero.currentPosition, (CharacterDirection)actionType);
+                } else {
+                    return CharacterManager.Singleton.Hero.currentPosition;
+                }
+            default:
+            return CharacterManager.Singleton.Hero.currentPosition;
+        }
+    }
 }

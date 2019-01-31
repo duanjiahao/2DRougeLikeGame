@@ -29,9 +29,15 @@ public class CharacterManager {
         private set;
     }
 
+    public List<Monster> Monsters {
+        get;
+        private set;
+    }
+
     public void Init(Transform container) {
         this.Container = container;
         Characters = new List<BaseCharacter>();
+        Monsters = new List<Monster>();
     }
 
     public void AddCharacter(BaseCharacter baseCharacter) {
@@ -39,7 +45,11 @@ public class CharacterManager {
     }
 
     public void RemoveCharacter(BaseCharacter baseCharacter) {
-        SceneManager.StartGame.StartCoroutine("StartRemoveCharacter", baseCharacter);
+        Characters.Remove(baseCharacter);
+
+        if (!baseCharacter.IsHero) {
+            Monsters.Remove(baseCharacter as Monster);
+        }
     }
 
     public void RemoveAllCharacter() {
@@ -64,12 +74,13 @@ public class CharacterManager {
             Monster monster = new Monster(Container, positon);
             monster.Init();
             Characters.Add(monster);
+            Monsters.Add(monster);
         }
     }
 
     private Position lastHeroPosition;
     public void Update() {
-        if (Hero != null && !Hero.isActing && Hero.currentPosition != lastHeroPosition) {
+        if (Hero != null && !Hero.IsActing && Hero.currentPosition != lastHeroPosition) {
             CheckIfReachDeKuChi();
             CheckIfInPath();
             lastHeroPosition = Hero.currentPosition;

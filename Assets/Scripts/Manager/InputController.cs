@@ -8,6 +8,7 @@ public enum ActionType {
     Left = 3,
     Right = 4,
     Attack = 5,
+    BeAttack = 6,
 }
 
 public class InputController {
@@ -26,17 +27,9 @@ public class InputController {
 
     private Action currentAction;
 
-    private Dictionary<ActionType, Action> actionMap;
-
     public void Init() {
         isControlling = false;
         currentAction = null;
-        actionMap = new Dictionary<ActionType, Action>();
-        actionMap.Add(ActionType.Up, Up);
-        actionMap.Add(ActionType.Down, Down);
-        actionMap.Add(ActionType.Left, Left);
-        actionMap.Add(ActionType.Right, Right);
-        actionMap.Add(ActionType.Attack, Attack);
         AddEvent();
     }
 
@@ -78,16 +71,19 @@ public class InputController {
     }
 
     public void DispatchAction(ActionType actionType) {
-        if (isControlling || !actionMap.ContainsKey(actionType)) {
+        if (isControlling) {
             return;
         }
 
-        foreach (BaseCharacter character in CharacterManager.Singleton.Characters) {
-            character.isActing = true;
+        foreach (Monster monster in CharacterManager.Singleton.Monsters) {
+            monster.WhatToDo(Utils.GetHeroPosition(actionType));
         }
 
+        CharacterManager.Singleton.Hero.ClearQueue();
+        CharacterManager.Singleton.Hero.SetQueueByActionType(actionType);
+
         isControlling = true;
-        currentAction = actionMap[actionType];
+        currentAction = Action;
         currentAction.Invoke();
     }
 
@@ -144,57 +140,47 @@ public class InputController {
     }
 
     #region Action Event 
-    private void Right() {
+    private void Action() {
         bool isAllCompelte = true;
-        foreach (BaseCharacter character in CharacterManager.Singleton.Characters) {
-            isAllCompelte = character.Move(CharacterDirection.RIGHT) && isAllCompelte;
+
+        if (CharacterManager.Singleton.Hero.MoveActionQueue.Count > 0) {
+            if (CharacterManager.Singleton.Hero.MoveActionQueue.Peek().Invoke()) {
+                CharacterManager.Singleton.Hero.MoveActionQueue.Dequeue();
+            } else {
+                isAllCompelte = false;
+            }
+        }
+
+        if (CharacterManager.Singleton.Hero.OtherActionQueue.Count > 0) {
+            if (CharacterManager.Singleton.Hero.OtherActionQueue.Peek().Invoke()) {
+                CharacterManager.Singleton.Hero.OtherActionQueue.Dequeue();
+            }
+            return;
         }
 
         if (isAllCompelte) {
-            currentAction = null;
-            isControlling = false;
-        }
-    }
-
-    private void Left() {
-        bool isAllCompelte = true;
-        foreach (BaseCharacter character in CharacterManager.Singleton.Characters) {
-            isAllCompelte = character.Move(CharacterDirection.LEFT) && isAllCompelte;
-        }
-        if (isAllCompelte) {
-            currentAction = null;
-            isControlling = false;
-        }
-    }
-
-    private void Down() {
-        bool isAllCompelte = true;
-        foreach (BaseCharacter character in CharacterManager.Singleton.Characters) {
-            isAllCompelte = character.Move(CharacterDirection.DOWN) && isAllCompelte;
+            foreach (Monster monster in CharacterManager.Singleton.Monsters) {
+                if (monster.OtherActionQueue.Count > 0) {
+                    if (monster.OtherActionQueue.Peek().Invoke()) {
+                        monster.OtherActionQueue.Dequeue();
+                    }
+                    return;
+                }
+            }
         }
 
-        if (isAllCompelte) {
-            currentAction = null;
-            isControlling = false;
-        }
-    }
 
-    private void Up() {
-        bool isAllCompelte = true;
-        foreach (BaseCharacter character in CharacterManager.Singleton.Characters) {
-            isAllCompelte = character.Move(CharacterDirection.UP) && isAllCompelte;
+        foreach (Monster monster in CharacterManager.Singleton.Monsters) {
+            if (monster.MoveActionQueue.Count > 0) {
+                if (monster.MoveActionQueue.Peek().Invoke()) {
+                    monster.MoveActionQueue.Dequeue();
+                }
+                else {
+                    isAllCompelte = false;
+                }
+            } 
         }
-        if (isAllCompelte) {
-            currentAction = null;
-            isControlling = false;
-        }
-    }
 
-    private void Attack() {
-        bool isAllCompelte = true;
-        foreach (BaseCharacter character in CharacterManager.Singleton.Characters) {
-            isAllCompelte = character.Attack() && isAllCompelte;
-        }
         if (isAllCompelte) {
             currentAction = null;
             isControlling = false;
