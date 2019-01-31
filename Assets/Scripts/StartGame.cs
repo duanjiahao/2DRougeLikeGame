@@ -55,10 +55,11 @@ public class StartGame : MonoBehaviour {
 	void Start () {
         float currentTime = Time.realtimeSinceStartup;
 
+        SceneManager.Singleton.Init(this);
         ResourceManager.Singleton.Init();
-        InputController.Singleton.Init(this);
+        InputController.Singleton.Init();
         DungeonManager.Singleton.Init(DungeonContainer);
-        CharacterManager.Singleton.Init(heroContainer, this);
+        CharacterManager.Singleton.Init(heroContainer);
 
         DungeonManager.Singleton.StartNewDungeon();
         CharacterManager.Singleton.GenerateHero();
@@ -66,8 +67,6 @@ public class StartGame : MonoBehaviour {
 
         LittleMapManager.Singleton.Init(LittleMapContainer, uiCamera);
         LittleMapManager.Singleton.DrawLittleMap();
-
-        mainCamera.transform.localPosition = new Vector3(DungeonManager.Singleton.CurrentDungeon.StartPoint.col * Utils.TILE_SIZE, DungeonManager.Singleton.CurrentDungeon.StartPoint.row * Utils.TILE_SIZE);
 
         //记录耗时
         Debug.LogWarning(Time.realtimeSinceStartup - currentTime);
@@ -83,13 +82,10 @@ public class StartGame : MonoBehaviour {
         InputController.Singleton.Update();
         CharacterManager.Singleton.Update();
         LittleMapManager.Singleton.Update();
+        SceneManager.Singleton.Update();
 	}
 
     private void LateUpdate() {
-        if (CharacterManager.Singleton.Hero != null && CharacterManager.Singleton.Hero.go != null) {
-            //Vector3 distance = CharacterManager.Singleton.Hero.go.transform.localPosition - UICamera.transform.localPosition;
-            //UICamera.transform.localPosition += distance * Time.smoothDeltaTime * 5f;
-            mainCamera.transform.localPosition = new Vector2(CharacterManager.Singleton.Hero.go.transform.localPosition.x, CharacterManager.Singleton.Hero.go.transform.localPosition.y);
-        }
+        SceneManager.Singleton.LateUpdate();
     }
 }

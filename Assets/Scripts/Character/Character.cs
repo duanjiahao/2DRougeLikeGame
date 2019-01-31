@@ -25,7 +25,7 @@ public class Character : BaseCharacter {
 
     public override void Init() {
         if (IsHero) {
-            CharacterManager.Singleton.startGame.statusPanel.UpdateStatusInfo();
+            SceneManager.StartGame.statusPanel.UpdateStatusInfo();
         }
 
         onceActionMap = new Dictionary<ActionType, Action>();
@@ -208,16 +208,19 @@ public class Character : BaseCharacter {
     protected virtual void AttackInit() {
         time = 0f;
         animator.SetTrigger("Attack");
-        character = CharacterManager.Singleton.GetCharacterByPositon(Utils.GetPositonByDirction(currentPosition, currentDirction));
-        if (character != null) {
-            PerformAttack();
-        }
     }
 
     protected virtual bool AttackUpdate() {
         time += Time.smoothDeltaTime;
         if (time > 1f) {
             animator.SetFloat("AttackTime", 2f);
+            character = CharacterManager.Singleton.GetCharacterByPositon(Utils.GetPositonByDirction(currentPosition, currentDirction));
+            if (character != null) {
+                PerformAttack();
+                if (character.IsHero) {
+                    SceneManager.Singleton.MainCameraShake(0f, 0.5f);
+                }
+            }
             return true;
         }
         return false;

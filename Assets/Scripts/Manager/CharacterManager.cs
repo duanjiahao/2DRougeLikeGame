@@ -29,12 +29,9 @@ public class CharacterManager {
         private set;
     }
 
-    public StartGame startGame;
-
-    public void Init(Transform container, StartGame startGame) {
+    public void Init(Transform container) {
         this.Container = container;
         Characters = new List<BaseCharacter>();
-        this.startGame = startGame;
     }
 
     public void AddCharacter(BaseCharacter baseCharacter) {
@@ -42,7 +39,7 @@ public class CharacterManager {
     }
 
     public void RemoveCharacter(BaseCharacter baseCharacter) {
-        startGame.StartCoroutine("StartRemoveCharacter", baseCharacter);
+        SceneManager.StartGame.StartCoroutine("StartRemoveCharacter", baseCharacter);
     }
 
     public void RemoveAllCharacter() {
@@ -93,7 +90,7 @@ public class CharacterManager {
     /// </summary>
     private void CheckIfReachDeKuChi() {
         if (Hero != null && Hero.currentPosition == DungeonManager.Singleton.CurrentDungeon.EndPoint) {
-            startGame.RestartAll();
+            SceneManager.StartGame.RestartAll();
         }
     }
 
@@ -103,9 +100,9 @@ public class CharacterManager {
     /// <value>The check if in path.</value>
     private void CheckIfInPath() {
         if (DungeonManager.Singleton.CurrentDungeon.IsInPath(Hero.currentPosition)) {
-            startGame.mask.SetActive(true);
+            SceneManager.StartGame.mask.SetActive(true);
         } else {
-            startGame.mask.SetActive(false);
+            SceneManager.StartGame.mask.SetActive(false);
         }
     }
 

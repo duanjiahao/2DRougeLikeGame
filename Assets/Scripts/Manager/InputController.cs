@@ -22,16 +22,13 @@ public class InputController {
         }
     }
 
-    private StartGame startGame;
-
     private bool isControlling;
 
     private Action currentAction;
 
     private Dictionary<ActionType, Action> actionMap;
 
-    public void Init(StartGame startGame) {
-        this.startGame = startGame;
+    public void Init() {
         isControlling = false;
         currentAction = null;
         actionMap = new Dictionary<ActionType, Action>();
@@ -98,16 +95,16 @@ public class InputController {
     /// 接收点击事件
     /// </summary>
     private void AddEvent() {
-        startGame.left.OnPress.AddListener(OnLeftClick);
-        startGame.right.OnPress.AddListener(OnRightClick);
-        startGame.up.OnPress.AddListener(OnUpClick);
-        startGame.down.OnPress.AddListener(OnDownClick);
-        startGame.attack.OnPress.AddListener(OnAttackClick);
+        SceneManager.StartGame.left.OnPress.AddListener(OnLeftClick);
+        SceneManager.StartGame.right.OnPress.AddListener(OnRightClick);
+        SceneManager.StartGame.up.OnPress.AddListener(OnUpClick);
+        SceneManager.StartGame.down.OnPress.AddListener(OnDownClick);
+        SceneManager.StartGame.attack.OnPress.AddListener(OnAttackClick);
 
-        startGame.upDir.onClick.AddListener(OnUpDirClick);
-        startGame.downDir.onClick.AddListener(OnDownDirClick);
-        startGame.leftDir.onClick.AddListener(OnLeftDirClick);
-        startGame.rightDir.onClick.AddListener(OnRightDirClick);
+        SceneManager.StartGame.upDir.onClick.AddListener(OnUpDirClick);
+        SceneManager.StartGame.downDir.onClick.AddListener(OnDownDirClick);
+        SceneManager.StartGame.leftDir.onClick.AddListener(OnLeftDirClick);
+        SceneManager.StartGame.rightDir.onClick.AddListener(OnRightDirClick);
     }
 
     private void OnRightDirClick() {

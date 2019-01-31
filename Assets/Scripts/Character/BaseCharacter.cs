@@ -21,7 +21,7 @@ public abstract class BaseCharacter {
         set {
             _curExp = value;
             if (IsHero) {
-                CharacterManager.Singleton.startGame.statusPanel.UpdateStatusInfo();
+                SceneManager.StartGame.statusPanel.UpdateStatusInfo();
             }
         }
     }
@@ -39,7 +39,7 @@ public abstract class BaseCharacter {
         } set {
             _curLife = value;
             if (IsHero) {
-                CharacterManager.Singleton.startGame.statusPanel.UpdateStatusInfo();
+                SceneManager.StartGame.statusPanel.UpdateStatusInfo();
             } else{
                 (this as Monster).UpdateLife();
             }
@@ -55,7 +55,7 @@ public abstract class BaseCharacter {
         } set {
             _lvl = value;
             if (IsHero) {
-                CharacterManager.Singleton.startGame.statusPanel.UpdateStatusInfo();
+                SceneManager.StartGame.statusPanel.UpdateStatusInfo();
             }
         }
     }
