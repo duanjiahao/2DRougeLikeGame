@@ -107,6 +107,10 @@ public class Monster : Character {
             return;
         }
         life.gameObject.SetActive(true);
+        Vector3 screenPos = CharacterManager.Singleton.startGame.mainCamera.WorldToScreenPoint(life.transform.position);
+
         life.material.SetFloat("_Progress", (float)CurLife / MaxLife);
+        life.material.SetFloat("_All", life.size.x * 100);
+        life.material.SetFloat("_Xmax", screenPos.x + life.size.x * 100 / 2);
     }
 }
