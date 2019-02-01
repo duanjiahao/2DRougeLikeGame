@@ -466,6 +466,7 @@ RectTransform:
   m_Children:
   - {fileID: 2136428539}
   - {fileID: 1141054065}
+  - {fileID: 1076832092}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1130,6 +1131,39 @@ Transform:
   m_Father: {fileID: 1888033728}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1076832091
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1076832092}
+  m_Layer: 5
+  m_Name: WindowRoot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1076832092
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1076832091}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 299393897}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1141054064
 GameObject:
   m_ObjectHideFlags: 0
@@ -2277,6 +2311,7 @@ MonoBehaviour:
   heroContainer: {fileID: 1049986378}
   DungeonContainer: {fileID: 1065430055}
   LittleMapContainer: {fileID: 245330529}
+  WindowContainer: {fileID: 1076832092}
   mask: {fileID: 1425120973}
   statusPanel: {fileID: 422550137}
   left: {fileID: 1586889341}
@@ -2288,6 +2323,7 @@ MonoBehaviour:
   rightDir: {fileID: 219661689}
   upDir: {fileID: 1958226676}
   downDir: {fileID: 141440908}
+  currentStep: 0
 --- !u!4 &2045340158
 Transform:
   m_ObjectHideFlags: 0

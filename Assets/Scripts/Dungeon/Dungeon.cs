@@ -148,6 +148,9 @@ public class Dungeon {
     /// <returns>The next direction.</returns>
     public CharacterDirection GetNextDirection(Position position) {
         List<Position> path = GenerateMonsterPath(position);
+        if (path == null || path.Count == 0) {
+            return CharacterDirection.DOWN;
+        }
         return Utils.GetDirction(position, path[0]);
     }
 

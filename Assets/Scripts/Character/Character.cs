@@ -281,10 +281,7 @@ public class Character : BaseCharacter {
         if (character.CurLife <= 0) {
             character.Death();
             PerformExp();
-
-            // 以后改成gameover
-            if (!character.IsHero)
-                character = null;
+            character = null;
         }
     }
 

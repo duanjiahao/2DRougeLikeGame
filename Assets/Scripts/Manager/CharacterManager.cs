@@ -42,6 +42,9 @@ public class CharacterManager {
 
     public void AddCharacter(BaseCharacter baseCharacter) {
         Characters.Add(baseCharacter);
+        if (!baseCharacter.IsHero) {
+            Monsters.Add(baseCharacter as Monster);
+        }
     }
 
     public void RemoveCharacter(BaseCharacter baseCharacter) {
@@ -49,11 +52,14 @@ public class CharacterManager {
 
         if (!baseCharacter.IsHero) {
             Monsters.Remove(baseCharacter as Monster);
+        } else {
+            Hero = null;
         }
     }
 
     public void RemoveAllCharacter() {
         Characters.Clear();
+        Monsters.Clear();
     }
 
     public void GenerateHero() {

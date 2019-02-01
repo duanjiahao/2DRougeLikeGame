@@ -143,6 +143,10 @@ public class InputController {
     private void Action() {
         bool isAllCompelte = true;
 
+        if (CharacterManager.Singleton.Hero == null) {
+            return;
+        }
+
         if (CharacterManager.Singleton.Hero.MoveActionQueue.Count > 0) {
             if (CharacterManager.Singleton.Hero.MoveActionQueue.Peek().Invoke()) {
                 CharacterManager.Singleton.Hero.MoveActionQueue.Dequeue();

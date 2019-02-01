@@ -24,6 +24,8 @@ public class Hero : Character {
 
     public override void Death() {
         // GameOver
-        Debug.LogWarning("Your dead!!!");
+        GameOverWindow window = WindowManager.Singleton.ShowWindow<GameOverWindow>(UIWindowType.GAME_OVER_WINDOW);
+        window.SetContent();
+        CharacterManager.Singleton.RemoveCharacter(this);
     }
 }
