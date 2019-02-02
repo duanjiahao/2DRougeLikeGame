@@ -101,6 +101,12 @@ public class InputController {
         SceneManager.StartGame.downDir.onClick.AddListener(OnDownDirClick);
         SceneManager.StartGame.leftDir.onClick.AddListener(OnLeftDirClick);
         SceneManager.StartGame.rightDir.onClick.AddListener(OnRightDirClick);
+        SceneManager.StartGame.pauseBtn.onClick.AddListener(OnPauseDirClick);
+    }
+
+    private void OnPauseDirClick() {
+        PauseWindow pauseWindow = WindowManager.Singleton.ShowWindow<PauseWindow>(UIWindowType.PAUSE_WINDOW);
+        pauseWindow.SetContent();
     }
 
     private void OnRightDirClick() {

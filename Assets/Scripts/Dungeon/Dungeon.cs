@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class Dungeon {
@@ -74,7 +73,7 @@ public class Dungeon {
         List<Position> positions = new List<Position>();
         for (int i = 0; i < Diffculty;) {
             Position position = GenerateRandomPosition();
-            if (dungeonMap.ContainsKey(position) && dungeonMap[position].reach) {
+            if (dungeonMap.ContainsKey(position) && dungeonMap[position].reach && position != CharacterManager.Singleton.Hero.currentPosition) {
                 positions.Add(position);
                 i++;
             }
@@ -313,22 +312,22 @@ public class Dungeon {
         step--;
 
         bool isSet = false;
-        if (UnityEngine.Random.Range(0f, 1f) > .5f) {
+        if (Random.Range(0f, 1f) > .5f) {
             GenerateStep(map, new Position(pos.row - 1, pos.col), ref step);
             isSet = true;
         }
 
-        if (UnityEngine.Random.Range(0f, 1f) > .5f) {
+        if (Random.Range(0f, 1f) > .5f) {
             GenerateStep(map, new Position(pos.row, pos.col - 1), ref step);
             isSet = true;
         }
 
-        if (UnityEngine.Random.Range(0f, 1f) > .5f) {
+        if (Random.Range(0f, 1f) > .5f) {
             GenerateStep(map, new Position(pos.row + 1, pos.col), ref step);
             isSet = true;
         }
 
-        if (!isSet || UnityEngine.Random.Range(0f, 1f) > .5f) {
+        if (!isSet || Random.Range(0f, 1f) > .5f) {
             GenerateStep(map, new Position(pos.row, pos.col + 1), ref step);
         }
     }
@@ -361,7 +360,7 @@ public class Dungeon {
     }
 
     private Position GenerateRandomPosition() {
-        return new Position(UnityEngine.Random.Range(0, Size), UnityEngine.Random.Range(0, Size));
+        return new Position(Random.Range(0, Size), Random.Range(0, Size));
     }
 
     public bool IsValidPosition(Position positon) {
@@ -504,10 +503,10 @@ public class Dungeon {
             return;
         }
 
-        int startIndex = UnityEngine.Random.Range(0, oldMap.Count);
+        int startIndex = Random.Range(0, oldMap.Count);
         Position startPos = new List<Position>(oldMap.Keys)[startIndex];
 
-        int endIndex = UnityEngine.Random.Range(0, newMap.Count);
+        int endIndex = Random.Range(0, newMap.Count);
         Position endPos = new List<Position>(newMap.Keys)[endIndex];
 
         int currentCol = startPos.col;

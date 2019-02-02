@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
-using System.Collections.Generic;
+using System.IO;
 
 public class StartGame : MonoBehaviour {
 
@@ -24,6 +24,7 @@ public class StartGame : MonoBehaviour {
     public Button rightDir;
     public Button upDir;
     public Button downDir;
+    public Button pauseBtn;
 
     public enum RestartStep {
         UnloadingResource = 1,
@@ -38,11 +39,11 @@ public class StartGame : MonoBehaviour {
     [HideInInspector]
     public RestartStep currentStep;
 
-    public void RestartAll() {
-        StartCoroutine("Restart");
+    public void RestartAll(SaveData saveData) {
+        StartCoroutine(Restart(saveData));
     }
 
-    IEnumerator Restart() {
+    IEnumerator Restart(SaveData saveData) {
         needStop = true;
         currentStep = RestartStep.UnloadingResource;
         yield return null;
@@ -52,10 +53,10 @@ public class StartGame : MonoBehaviour {
         CharacterManager.Singleton.RemoveAllCharacter();
         yield return null;
         currentStep = RestartStep.StartingNewDungeon;
-        DungeonManager.Singleton.StartNewDungeon();
+        DungeonManager.Singleton.StartNewDungeon(saveData);
         yield return null;
         currentStep = RestartStep.GeneratingNewHero;
-        CharacterManager.Singleton.GenerateHero();
+        CharacterManager.Singleton.GenerateHero(saveData);
         yield return null;
         currentStep = RestartStep.GeneratingMonsters;
         CharacterManager.Singleton.GenerateMonsters();
@@ -67,27 +68,21 @@ public class StartGame : MonoBehaviour {
         needStop = false;
     }
 
-	// Use this for initialization
-	void Start () {
-        float currentTime = Time.realtimeSinceStartup;
+    // Use this for initialization
+    void Start () {
+        InitAll();
+        StartGameWindow startGameWindow = WindowManager.Singleton.ShowWindow<StartGameWindow>(UIWindowType.START_GAME_WINDOW);
+        startGameWindow.SetContent();
+    }
 
+    private void InitAll() {
         SceneManager.Singleton.Init(this);
         ResourceManager.Singleton.Init();
         InputController.Singleton.Init();
         DungeonManager.Singleton.Init(DungeonContainer);
         CharacterManager.Singleton.Init(heroContainer);
-        WindowManager.Singleton.Init(WindowContainer);
-
-        DungeonManager.Singleton.StartNewDungeon();
-        CharacterManager.Singleton.GenerateHero();
-        CharacterManager.Singleton.GenerateMonsters();
-
         LittleMapManager.Singleton.Init(LittleMapContainer, uiCamera);
-        LittleMapManager.Singleton.DrawLittleMap();
-
-
-        //记录耗时
-        Debug.LogWarning(Time.realtimeSinceStartup - currentTime);
+        WindowManager.Singleton.Init(WindowContainer);
     }
 
     private bool needStop;
@@ -101,7 +96,7 @@ public class StartGame : MonoBehaviour {
         }
        
         WindowManager.Singleton.Update();
-	}
+    }
 
     private void LateUpdate() {
         SceneManager.Singleton.LateUpdate();

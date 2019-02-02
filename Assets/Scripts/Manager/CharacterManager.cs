@@ -40,6 +40,12 @@ public class CharacterManager {
         Monsters = new List<Monster>();
     }
 
+    public void SetSaveData(SaveData saveData) {
+        Hero.Lvl = saveData.level;
+        Hero.CurLife = saveData.life;
+        Hero.CurExp = saveData.exp;
+    }
+
     public void AddCharacter(BaseCharacter baseCharacter) {
         Characters.Add(baseCharacter);
         if (!baseCharacter.IsHero) {
@@ -62,13 +68,20 @@ public class CharacterManager {
         Monsters.Clear();
     }
 
-    public void GenerateHero() {
+    public void GenerateHero(SaveData saveData) {
         if (Hero == null) {
             Hero = new Hero(Container);
             Hero.Init();
         } else {
             Hero.SetHeroData(Container);
         }
+
+        if (saveData != null) {
+            Hero.Lvl = saveData.level;
+            Hero.CurExp = saveData.exp;
+            Hero.CurLife = saveData.life;
+        }
+
         Characters.Add(Hero);
         lastHeroPosition = Hero.currentPosition;
         CheckIfInPath();

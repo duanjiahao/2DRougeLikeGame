@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class DungeonManager {
 
@@ -27,6 +28,11 @@ public class DungeonManager {
         private set;
     }
 
+    public int Seed {
+        get;
+        private set;
+    }
+
     public void Init(Transform dungeonContainer) {
         this.Container = dungeonContainer;
         this.Layer = 1;
@@ -36,10 +42,29 @@ public class DungeonManager {
         this.Layer = 1;
     }
 
-    public void StartNewDungeon() {
+    public void StartNewDungeon(SaveData saveData) {
+        if (saveData != null) {
+            Seed = saveData.seed;
+            Layer = saveData.layer;
+            ApplySeed();
+        } else {
+            GenerateSeed();
+        }
+
         CurrentDungeon = new Dungeon(20, 5, 20, 3);
         CurrentDungeon.GenerateDungeon();
         CurrentDungeon.DrawDungeon(Container);
         Layer++;
+    }
+
+    private void GenerateSeed() {
+        TimeSpan timeSpan = DateTime.Now - new DateTime(1970, 1, 1, 0, 0, 0, 0);
+        long seconds =  (long)timeSpan.TotalSeconds;
+        Seed = (int)(seconds * "Tsukki".GetHashCode());
+        ApplySeed();
+    }
+
+    private void ApplySeed() {
+        UnityEngine.Random.InitState(Seed);
     }
 }

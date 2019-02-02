@@ -19,7 +19,7 @@ public class NextLayerWindow : BaseWindow, IUpdateWindow {
         time = 0f;
         progress = 0f;
         text.text = string.Format("第{0}层", DungeonManager.Singleton.Layer);
-        SceneManager.StartGame.RestartAll();
+        SceneManager.StartGame.RestartAll(null);
     }
 
     private float delay = 0.5f;

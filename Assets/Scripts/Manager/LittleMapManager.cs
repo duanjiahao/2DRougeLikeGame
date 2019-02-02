@@ -32,13 +32,13 @@ public class LittleMapManager {
     public void Init(Transform littleMapContainer, Camera uiCamera) {
         checkMap = new Dictionary<Position, Image>();
         this.Container = littleMapContainer;
-        PER_SIZE = MAP_SIZE / (DungeonManager.Singleton.CurrentDungeon.Size + 2);
         sightArea = new Position(Mathf.FloorToInt(uiCamera.orthographicSize), Mathf.FloorToInt(uiCamera.orthographicSize * uiCamera.aspect));
-        lastPositon = CharacterManager.Singleton.Hero.currentPosition;
     }
 
     public void DrawLittleMap() {
         checkMap.Clear();
+        PER_SIZE = MAP_SIZE / (DungeonManager.Singleton.CurrentDungeon.Size + 2);
+        lastPositon = CharacterManager.Singleton.Hero.currentPosition;
         int dungeonSize = DungeonManager.Singleton.CurrentDungeon.Size;
         Dictionary<Position, BaseTile>.Enumerator itor = DungeonManager.Singleton.CurrentDungeon.DungeonMap.GetEnumerator();
         while (itor.MoveNext()) {
