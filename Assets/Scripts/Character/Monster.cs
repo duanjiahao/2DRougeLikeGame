@@ -51,8 +51,6 @@ public class Monster : Character {
         Vector3 screenPos = SceneManager.MainCamera.WorldToScreenPoint(life.transform.position);
 
         life.material.SetFloat("_Progress", (float)CurLife / MaxLife);
-        life.material.SetFloat("_All", life.size.x * 100);
-        life.material.SetFloat("_Xmax", screenPos.x + life.size.x * 100 / 2);
     }
 
     protected override void AttackInit() {

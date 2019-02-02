@@ -49,14 +49,12 @@
 			
 			sampler2D _MainTex;
             float _Progress;
-            float _All;
             float4 _TintColor;
-            float _Xmax;
 
 			fixed4 frag (v2f i) : SV_Target
 			{
 				fixed4 col = tex2D(_MainTex, i.uv) * _TintColor;
-                col *= i.vertex.x < _Xmax - (_All * (1 - _Progress)) ? 1 : 0;
+                col *= i.uv.x < _Progress ? 1 : 0;
 				return col;
 			}
 			ENDCG
