@@ -39,7 +39,7 @@ public class GameOverWindow : BaseWindow, IUpdateWindow {
             return;
         }
 
-        progress += Time.smoothDeltaTime * 0.5f;
+        progress += Time.smoothDeltaTime;
 
         float limit = (float)SceneManager.StartGame.currentStep / (int)StartGame.RestartStep.AllComplete;
         if (progress > limit) {
