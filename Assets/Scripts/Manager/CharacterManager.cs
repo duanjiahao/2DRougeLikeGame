@@ -107,7 +107,8 @@ public class CharacterManager {
     /// </summary>
     private void CheckIfReachDeKuChi() {
         if (Hero != null && Hero.currentPosition == DungeonManager.Singleton.CurrentDungeon.EndPoint) {
-            SceneManager.StartGame.RestartAll();
+            NextLayerWindow window = WindowManager.Singleton.ShowWindow<NextLayerWindow>(UIWindowType.NEXT_LAYER_WINDOW);
+            window.SetContent();
         }
     }
 

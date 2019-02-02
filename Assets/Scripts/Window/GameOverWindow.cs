@@ -30,6 +30,7 @@ public class GameOverWindow : BaseWindow, IUpdateWindow {
         slider.value = 0f;
         progress = 0f;
         startSlider = false;
+        DungeonManager.Singleton.RecountLayer();
     }
 
     private float progress;

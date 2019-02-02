@@ -76,6 +76,7 @@ public class StartGame : MonoBehaviour {
         InputController.Singleton.Init();
         DungeonManager.Singleton.Init(DungeonContainer);
         CharacterManager.Singleton.Init(heroContainer);
+        WindowManager.Singleton.Init(WindowContainer);
 
         DungeonManager.Singleton.StartNewDungeon();
         CharacterManager.Singleton.GenerateHero();
@@ -83,7 +84,7 @@ public class StartGame : MonoBehaviour {
 
         LittleMapManager.Singleton.Init(LittleMapContainer, uiCamera);
         LittleMapManager.Singleton.DrawLittleMap();
-        WindowManager.Singleton.Init(WindowContainer);
+
 
         //记录耗时
         Debug.LogWarning(Time.realtimeSinceStartup - currentTime);
