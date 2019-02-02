@@ -8,13 +8,11 @@ public static class FileUtils {
 
     public static MemoryStream ReadAllBytes(string path) {
         if (!File.Exists(path)) {
-            Debug.LogWarning("File don't exist!!!");
             return null;
         }
 
         FileStream fileStream = File.OpenRead(path);
         if (fileStream == null) {
-            Debug.LogWarning("Read Failed!!!");
             return null;
         }
 
@@ -24,10 +22,6 @@ public static class FileUtils {
 
         fileStream.Close();
         fileStream.Dispose();
-
-        if (fileStream == null) {
-            Debug.LogWarning("WTF!!!");
-        }
 
         return memoryStream;
     }
