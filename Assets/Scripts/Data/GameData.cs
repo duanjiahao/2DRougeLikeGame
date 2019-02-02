@@ -28,12 +28,12 @@ public class GameData {
         MemoryStream memoryStream = new MemoryStream();
 
         binaryFormatter.Serialize(memoryStream, saveData);
-        FileUtils.WriteAllBytes(memoryStream, FileUtils.CombinePath(Application.streamingAssetsPath, SAVE_DATA));
+        FileUtils.WriteAllBytes(memoryStream, FileUtils.CombinePath(Application.persistentDataPath, SAVE_DATA));
     }
 
     public static SaveData Load() {
         BinaryFormatter binaryFormatter = new BinaryFormatter();
-        MemoryStream memoryStream = FileUtils.ReadAllBytes(FileUtils.CombinePath(Application.streamingAssetsPath, SAVE_DATA));
+        MemoryStream memoryStream = FileUtils.ReadAllBytes(FileUtils.CombinePath(Application.persistentDataPath, SAVE_DATA));
         SaveData saveData = binaryFormatter.Deserialize(memoryStream) as SaveData;
         return saveData;
     }

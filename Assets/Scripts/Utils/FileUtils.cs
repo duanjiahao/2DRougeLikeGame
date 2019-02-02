@@ -52,7 +52,7 @@ public static class FileUtils {
     }
 
     public static bool ContainsDataFile() {
-        return File.Exists(CombinePath(Application.streamingAssetsPath, GameData.SAVE_DATA));
+        return File.Exists(CombinePath(Application.persistentDataPath, GameData.SAVE_DATA));
     }
 
     /// <summary>
