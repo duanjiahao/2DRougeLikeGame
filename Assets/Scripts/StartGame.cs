@@ -39,11 +39,11 @@ public class StartGame : MonoBehaviour {
     [HideInInspector]
     public RestartStep currentStep;
 
-    public void RestartAll(SaveData saveData) {
-        StartCoroutine(Restart(saveData));
+    public void RestartAll(bool heroInit, SaveData saveData) {
+        StartCoroutine(Restart(heroInit, saveData));
     }
 
-    IEnumerator Restart(SaveData saveData) {
+    IEnumerator Restart(bool heroInit, SaveData saveData) {
         needStop = true;
         currentStep = RestartStep.UnloadingResource;
         yield return null;
@@ -56,7 +56,7 @@ public class StartGame : MonoBehaviour {
         DungeonManager.Singleton.StartNewDungeon(saveData);
         yield return null;
         currentStep = RestartStep.GeneratingNewHero;
-        CharacterManager.Singleton.GenerateHero(saveData);
+        CharacterManager.Singleton.GenerateHero(heroInit, saveData);
         yield return null;
         currentStep = RestartStep.GeneratingMonsters;
         CharacterManager.Singleton.GenerateMonsters();

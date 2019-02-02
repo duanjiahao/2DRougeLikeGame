@@ -53,6 +53,10 @@ public class CharacterManager {
         }
     }
 
+    public void RemoveHero() {
+        RemoveCharacter(Hero);
+    }
+
     public void RemoveCharacter(BaseCharacter baseCharacter) {
         Characters.Remove(baseCharacter);
 
@@ -68,8 +72,8 @@ public class CharacterManager {
         Monsters.Clear();
     }
 
-    public void GenerateHero(SaveData saveData) {
-        if (Hero == null) {
+    public void GenerateHero(bool initHero, SaveData saveData) {
+        if (initHero) {
             Hero = new Hero(Container);
             Hero.Init();
         } else {

@@ -23,7 +23,7 @@ public class StartGameWindow : BaseWindow, IUpdateWindow {
         nextBtn.gameObject.SetActive(false);
         slider.gameObject.SetActive(true);
         startSlider = true;
-        SceneManager.StartGame.RestartAll(GameData.Load());
+        SceneManager.StartGame.RestartAll(true, GameData.Load());
     }
 
     bool startSlider;
@@ -32,7 +32,8 @@ public class StartGameWindow : BaseWindow, IUpdateWindow {
         nextBtn.gameObject.SetActive(false);
         slider.gameObject.SetActive(true);
         startSlider = true;
-        SceneManager.StartGame.RestartAll(null);
+
+        SceneManager.StartGame.RestartAll(true, null);
     }
 
     public void SetContent() {
