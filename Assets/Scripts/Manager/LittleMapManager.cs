@@ -62,20 +62,9 @@ public class LittleMapManager {
     }
 
     public void CheckSightArea() {
-        if (CharacterManager.Singleton.Hero.currentPosition.col != lastPositon.col) {
-            bool isUp = CharacterManager.Singleton.Hero.currentPosition.col > lastPositon.col;
-            for (int i = CharacterManager.Singleton.Hero.currentPosition.row - sightArea.row; i <= CharacterManager.Singleton.Hero.currentPosition.row + sightArea.row; i++) {
-                Position position = new Position(i, CharacterManager.Singleton.Hero.currentPosition.col + (isUp ? 1 : -1) * sightArea.col);
-                if (checkMap.ContainsKey(position)) {
-                    checkMap[position].color = whiteAlphaColor;
-                }
-            }
-        }
-
-        if (CharacterManager.Singleton.Hero.currentPosition.row != lastPositon.row) {
-            bool isUp = CharacterManager.Singleton.Hero.currentPosition.row > lastPositon.row;
-            for (int i = CharacterManager.Singleton.Hero.currentPosition.col - sightArea.col; i <= CharacterManager.Singleton.Hero.currentPosition.col + sightArea.col; i++) {
-                Position position = new Position(CharacterManager.Singleton.Hero.currentPosition.row + (isUp ? 1 : -1) * sightArea.row, i);
+        for (int i = CharacterManager.Singleton.Hero.currentPosition.row - sightArea.row; i <= CharacterManager.Singleton.Hero.currentPosition.row + sightArea.row; i++) {
+            for (int j = CharacterManager.Singleton.Hero.currentPosition.col - sightArea.col; j <= CharacterManager.Singleton.Hero.currentPosition.col + sightArea.col; j++) {
+                Position position = new Position(i, j);
                 if (checkMap.ContainsKey(position)) {
                     checkMap[position].color = whiteAlphaColor;
                 }

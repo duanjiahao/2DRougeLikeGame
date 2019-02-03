@@ -19,21 +19,24 @@ public class Monster : Character {
         Exp = 50;
     }
 
-    public void WhatToDo(Position heroPositon) {
+    public void WhatToDo(Position heroPositon, Position myPosition) {
 
         ClearQueue();
 
-        if (!(heroPositon - currentPosition < sightArea)) {
+        if (!(heroPositon - myPosition < sightArea)) {
             SetQueueByActionType((ActionType)UnityEngine.Random.Range(1, 5));
             return;
         }
 
-        if (Utils.IsInAttackRange(currentPosition, heroPositon)) {
+        Debug.LogWarning("myPosition row: " + myPosition.row + " col: " + myPosition.col);
+        Debug.LogWarning("heroPositon row: " + heroPositon.row + " col: " + heroPositon.col);
+
+        if (Utils.IsInAttackRange(myPosition, heroPositon)) {
             OtherActionQueue.Enqueue(Attack);
             return;
         }
 
-        ActionType type = (ActionType)DungeonManager.Singleton.CurrentDungeon.GetNextDirection(currentPosition);
+        ActionType type = (ActionType)DungeonManager.Singleton.CurrentDungeon.GetNextDirection(myPosition);
         SetQueueByActionType(type);
     }
 
@@ -48,7 +51,6 @@ public class Monster : Character {
             return;
         }
         life.gameObject.SetActive(true);
-        Vector3 screenPos = SceneManager.MainCamera.WorldToScreenPoint(life.transform.position);
 
         life.material.SetFloat("_Progress", (float)CurLife / MaxLife);
     }

@@ -117,8 +117,72 @@ public static class Utils {
                 } else {
                     return CharacterManager.Singleton.Hero.currentPosition;
                 }
+            case ActionType.LimitSkill:
+                return DungeonManager.Singleton.CurrentDungeon.GetMaxReachPositon(CharacterManager.Singleton.Hero.currentPosition,
+                                                                                  CharacterManager.Singleton.Hero.currentDirction,
+                                                                                  CharacterManager.Singleton.Hero.LimitRange);
             default:
             return CharacterManager.Singleton.Hero.currentPosition;
+        }
+    }
+
+    public static Position GetMyPosition(BaseCharacter character, ActionType actionType) {
+        switch (actionType) {
+            case ActionType.LimitSkill:
+
+                BaseCharacter baseCharacter = null;
+                DungeonManager.Singleton.CurrentDungeon.GetMaxReachPositonAndCharacter(CharacterManager.Singleton.Hero.currentPosition,
+                                                                                       CharacterManager.Singleton.Hero.currentDirction,
+                                                                                       CharacterManager.Singleton.Hero.LimitRange,
+                                                                                       ref baseCharacter);
+                if (baseCharacter == character) {
+                    if (DungeonManager.Singleton.CurrentDungeon.CanMove(CharacterManager.Singleton.Hero.currentDirction, character.currentPosition)) {
+                        return GetPositonByDirction(character.currentPosition, CharacterManager.Singleton.Hero.currentDirction);
+                    }
+                }
+
+                return character.currentPosition;
+            default:
+                return character.currentPosition;
+        }
+    }
+
+    /// <summary>
+    /// 根据Position的x,y计算差值
+    /// </summary>
+    /// <returns>The position by positon.</returns>
+    /// <param name="gap">Gap.</param>
+    public static Vector3 GetPosByPositon(Vector3 origin, Position gap) {
+        return origin + Vector3.right * gap.col * TILE_SIZE + Vector3.up * gap.row * TILE_SIZE;
+    }
+
+    public static Vector3 GetDirVectorByCharacterDirction(CharacterDirection direction) {
+        switch (direction) {
+            case CharacterDirection.DOWN:
+                return Vector3.down;
+            case CharacterDirection.UP:
+                return Vector3.up;
+            case CharacterDirection.LEFT:
+                return Vector3.left;
+            case CharacterDirection.RIGHT:
+                return Vector3.right;
+            default:
+                return Vector3.down;
+        }
+    }
+
+    public static bool IsReachEndPosByDirection(Vector3 currentPos, Vector3 endPos, CharacterDirection direction) {
+        switch (direction) {
+            case CharacterDirection.DOWN:
+                return currentPos.y <= endPos.y;
+            case CharacterDirection.UP:
+                return currentPos.y >= endPos.y;
+            case CharacterDirection.LEFT:
+                return currentPos.x <= endPos.x;
+            case CharacterDirection.RIGHT:
+                return currentPos.x >= endPos.x;
+            default:
+                return false;
         }
     }
 }

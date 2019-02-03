@@ -243,6 +243,45 @@ public class Dungeon {
         return true;
     }
 
+    public Position GetMaxReachPositonAndCharacter(Position currentPos, CharacterDirection direction, int range, ref BaseCharacter character) {
+        int move = 0;
+        Position next = currentPos;
+        Position last = currentPos;
+        while (move <= range) {
+            next = Utils.GetPositonByDirction(next, direction);
+            if (CanReach(next)) {
+                if (CharacterManager.Singleton.IsCharacterInPositon(next)) {
+                    character = CharacterManager.Singleton.GetCharacterByPositon(next);
+                    return last;
+                }
+                move++;
+                last = next;
+            } else {
+                return last;
+            }
+        }
+        return last;
+    }
+
+    public Position GetMaxReachPositon(Position currentPos, CharacterDirection direction, int range) {
+        int move = 0;
+        Position next = currentPos;
+        Position last = currentPos;
+        while (move <= range) {
+            next = Utils.GetPositonByDirction(next, direction);
+            if (CanReach(next)) {
+                if (CharacterManager.Singleton.IsCharacterInPositon(next)) {
+                    return last;
+                }
+                move++;
+                last = next;
+            } else {
+                return last;
+            }
+        }
+        return last;
+    }
+
     /// <summary>
     /// 判断一个positon在map中是否存在，如果存在，是否reach
     /// </summary>

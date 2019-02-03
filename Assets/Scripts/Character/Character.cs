@@ -33,10 +33,10 @@ public class Character : BaseCharacter {
         onceActionMap.Add(ActionType.Attack, AttackInit);
         onceActionMap.Add(ActionType.BeAttack, BeAttackInit);
 
-        updateActionMap.Add(ActionType.Up, UpUpdate);
-        updateActionMap.Add(ActionType.Down, DownUpdate);
-        updateActionMap.Add(ActionType.Left, LeftUpdate);
-        updateActionMap.Add(ActionType.Right, RightUpdate);
+        updateActionMap.Add(ActionType.Up, MoveUpdate);
+        updateActionMap.Add(ActionType.Down, MoveUpdate);
+        updateActionMap.Add(ActionType.Left, MoveUpdate);
+        updateActionMap.Add(ActionType.Right, MoveUpdate);
         updateActionMap.Add(ActionType.Attack, AttackUpdate);
         updateActionMap.Add(ActionType.BeAttack, BeAttackUpdate);
     }
@@ -68,6 +68,11 @@ public class Character : BaseCharacter {
 
     public override bool BeAttack() {
         actionType = ActionType.BeAttack;
+        return Update();
+    }
+
+    public bool LimitSkill() {
+        actionType = ActionType.LimitSkill;
         return Update();
     }
 
@@ -120,6 +125,8 @@ public class Character : BaseCharacter {
                 return Attack;
             case ActionType.BeAttack:
                 return BeAttack;
+            case ActionType.LimitSkill:
+                return LimitSkill;
         }
         return null;
     }
@@ -146,10 +153,10 @@ public class Character : BaseCharacter {
         }
     }
 
-    protected virtual bool DownUpdate() {
+    protected virtual bool MoveUpdate() {
         if (canMove) {
-            go.transform.localPosition += Vector3.down * Time.smoothDeltaTime * 2f * Utils.TILE_SIZE;
-            if (go.transform.localPosition.y <= endPosition.y) {
+            go.transform.localPosition += Utils.GetDirVectorByCharacterDirction(currentDirction) * Time.smoothDeltaTime * 2f * Utils.TILE_SIZE;
+            if (Utils.IsReachEndPosByDirection(go.transform.localPosition, endPosition, currentDirction)) {
                 go.transform.localPosition = endPosition;
                 return true;
             } else {
@@ -171,19 +178,6 @@ public class Character : BaseCharacter {
         }
     }
 
-    protected virtual bool UpUpdate() {
-        if (canMove) {
-            go.transform.localPosition += Vector3.up * Time.smoothDeltaTime * 2f * Utils.TILE_SIZE;
-            if (go.transform.localPosition.y >= endPosition.y) {
-                go.transform.localPosition = endPosition;
-                return true;
-            } else {
-                return false;
-            }
-        }
-        return true;
-    }
-
     protected virtual void LeftInit() {
         canMove = DungeonManager.Singleton.CurrentDungeon.CanMove(CharacterDirection.LEFT, currentPosition);
         animator.SetTrigger("Left");
@@ -192,19 +186,6 @@ public class Character : BaseCharacter {
         if (canMove) {
             currentPosition = currentPosition.Left();
         }
-    }
-
-    protected virtual bool LeftUpdate() {
-        if (canMove) {
-            go.transform.localPosition += Vector3.left * Time.smoothDeltaTime * 2f * Utils.TILE_SIZE;
-            if (go.transform.localPosition.x <= endPosition.x) {
-                go.transform.localPosition = endPosition;
-                return true;
-            } else {
-                return false;
-            }
-        }
-        return true;
     }
 
     protected virtual void RightInit() {
@@ -217,21 +198,8 @@ public class Character : BaseCharacter {
         }
     }
 
-    protected virtual bool RightUpdate() {
-        if (canMove) {
-            go.transform.localPosition += Vector3.right * Time.smoothDeltaTime * 2f * Utils.TILE_SIZE;
-            if (go.transform.localPosition.x >= endPosition.x) {
-                go.transform.localPosition = endPosition;
-                return true;
-            } else {
-                return false;
-            }
-        }
-        return true;
-    }
-
     private float time;
-    private BaseCharacter character;
+    protected BaseCharacter character;
     protected virtual void AttackInit() {
         time = 0f;
         animator.SetTrigger("Attack");
@@ -276,7 +244,7 @@ public class Character : BaseCharacter {
     public override void Death() {
     }
 
-    private void PerformAttack() {
+    protected void PerformAttack() {
         character.CurLife -= Damage;
         if (character.CurLife <= 0) {
             character.Death();
@@ -285,7 +253,7 @@ public class Character : BaseCharacter {
         }
     }
 
-    private void PerformExp() {
+    protected void PerformExp() {
         CurExp += character.Exp;
         if (CurExp >= NeedExp) {
             CurExp -= NeedExp;

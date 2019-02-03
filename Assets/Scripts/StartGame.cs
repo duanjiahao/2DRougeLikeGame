@@ -25,6 +25,7 @@ public class StartGame : MonoBehaviour {
     public Button upDir;
     public Button downDir;
     public Button pauseBtn;
+    public Button limitSkillBtn;
 
     public enum RestartStep {
         UnloadingResource = 1,

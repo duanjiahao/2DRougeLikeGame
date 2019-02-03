@@ -9,6 +9,7 @@ public enum ActionType {
     Right = 4,
     Attack = 5,
     BeAttack = 6,
+    LimitSkill = 7,
 }
 
 public class InputController {
@@ -76,7 +77,7 @@ public class InputController {
         }
 
         foreach (Monster monster in CharacterManager.Singleton.Monsters) {
-            monster.WhatToDo(Utils.GetHeroPosition(actionType));
+            monster.WhatToDo(Utils.GetHeroPosition(actionType), Utils.GetMyPosition(monster, actionType));
         }
 
         CharacterManager.Singleton.Hero.ClearQueue();
@@ -102,6 +103,11 @@ public class InputController {
         SceneManager.StartGame.leftDir.onClick.AddListener(OnLeftDirClick);
         SceneManager.StartGame.rightDir.onClick.AddListener(OnRightDirClick);
         SceneManager.StartGame.pauseBtn.onClick.AddListener(OnPauseDirClick);
+        SceneManager.StartGame.limitSkillBtn.onClick.AddListener(OnLimitSkillBtnClick);
+    }
+
+    private void OnLimitSkillBtnClick() {
+        InputController.Singleton.DispatchAction(ActionType.LimitSkill);
     }
 
     private void OnPauseDirClick() {
