@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System;
+using System.Collections.Generic;
 
 public class SceneManager {
     private static SceneManager sceneManager;
@@ -62,14 +63,31 @@ public class SceneManager {
                 crash = false;
                 follow = true;
             }
-            Vector2 dir = new Vector2(Random.Range(-0.1f, 0.1f), Random.Range(-0.1f, 0.1f));
+            Vector2 dir = new Vector2(UnityEngine.Random.Range(-0.1f, 0.1f), UnityEngine.Random.Range(-0.1f, 0.1f));
             startGame.mainCamera.transform.localPosition = origin + dir;
 
         }
     }
 
+    private SortedList<float, Action> scheduleList = new SortedList<float, Action>();
+    public void DelayCall(float delay, Action action) {
+        float myTime = Time.time + delay;
+        scheduleList.Add(myTime, action);
+    }
+
+    public void RunSchedule() {
+        if (scheduleList.Count == 0) {
+            return;
+        }
+
+        if (Time.time >= scheduleList.Keys[0]) {
+            scheduleList.Values[0].Invoke();
+            scheduleList.RemoveAt(0);
+        }
+    }
+
     public void Update() {
-        
+        RunSchedule();
     }
 
     public void LateUpdate() {

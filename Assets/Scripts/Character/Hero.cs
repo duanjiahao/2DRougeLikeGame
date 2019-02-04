@@ -10,11 +10,14 @@ public class Hero : Character {
         }
     }
 
+    private Transform limitSkill;
+
     public Hero(Transform container) {
         currentPosition = DungeonManager.Singleton.CurrentDungeon.StartPoint;
         prefabPath = "Hero";
         go = Utils.DrawCharacter(this, container);
         animator = go.GetComponentInChildren<Animator>();
+        limitSkill = go.transform.Find("Effect/limitSkill");
         currentDirction = CharacterDirection.DOWN;
         IsHero = true;
         CurLife = MaxLife = 100;
@@ -32,6 +35,7 @@ public class Hero : Character {
         currentPosition = DungeonManager.Singleton.CurrentDungeon.StartPoint;
         go = Utils.DrawCharacter(this, container);
         animator = go.GetComponentInChildren<Animator>();
+        limitSkill = go.transform.Find("Effect/limitSkill");
         currentDirction = CharacterDirection.DOWN;
     }
 
@@ -62,10 +66,15 @@ public class Hero : Character {
                 go.transform.localPosition = endPos;
                 animator.speed = 1f;
                 hasSet = true;
+
             }
 
             time += Time.smoothDeltaTime;
             if (time > 1f) {
+                ShowLimitSkill();
+                SceneManager.Singleton.DelayCall(0.5f, () => {
+                    limitSkill.gameObject.SetActive(false);
+                });
                 animator.SetFloat("AttackTime", 2f);
                 if (character != null) {
                     PerformAttack();
@@ -89,5 +98,18 @@ public class Hero : Character {
         }
 
         return false;
+    }
+
+    private void ShowLimitSkill() {
+        limitSkill.gameObject.SetActive(true);
+        if (currentDirction == CharacterDirection.LEFT) {
+            limitSkill.localRotation = Quaternion.Euler(Vector3.zero);
+        } else if (currentDirction == CharacterDirection.DOWN) {
+            limitSkill.localRotation = Quaternion.Euler(new Vector3(0, 0, 20f));
+        } else if (currentDirction == CharacterDirection.RIGHT) {
+            limitSkill.localRotation = Quaternion.Euler(new Vector3(0, -180f, 0));
+        } else if (currentDirction == CharacterDirection.UP) {
+            limitSkill.localRotation = Quaternion.Euler(new Vector3(180f, 0, 20f));
+        }
     }
 }
