@@ -158,6 +158,7 @@ PlayerSettings:
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
+    Android: com.Tsukki.RougeLikeGame
     iOS: com.Tsukki.RougeLikeGame
   buildNumber: {}
   AndroidBundleVersionCode: 1
